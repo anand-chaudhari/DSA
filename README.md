@@ -58,16 +58,6 @@ Simply open `index.html` in any modern web browser:
 
 ---
 
-## 🌐 Deploying to GitHub Pages
-
-1. Go to your repository settings on GitHub:
-   `https://github.com/anand-chaudhari/DSA/settings/pages`
-2. Under **Build and deployment**:
-   - **Source**: Select `Deploy from a branch`
-   - **Branch**: Select `main` and folder `/ (root)`
-3. Click **Save**.
-4. Your website will be live in a couple of minutes at:
-   `https://anand-chaudhari.github.io/DSA/`
 
 ---
 
