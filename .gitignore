@@ -1,0 +1,6 @@
+# Temporary and duplicate files
+build_site.js
+guidance_data.js
+* (1).*
+.DS_Store
+Thumbs.db

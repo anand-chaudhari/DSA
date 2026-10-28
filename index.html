@@ -1,0 +1,2989 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>DSA Pattern Mastery - Interactive Coding Interview Mindmap</title>
+<meta name="description" content="Master 16 core Data Structures and Algorithms categories and 56 patterns. Interactive progress tracking, problem recognition clues, code recipes, and Big-O complexities.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* ==========================================================================
+   THEME VARIABLES & CSS RESET
+   ========================================================================== */
+:root {
+  --navy: #2b1b8c;
+  --navy-light: #4330ad;
+  --navy-glow: rgba(43, 27, 140, 0.14);
+  --blue: #1f6fd0;
+  --ink: #1c1c28;
+  --ink-secondary: #4a5568;
+  --ink-muted: #718096;
+  --bg: #eef0f6;
+  --sheet: #ffffff;
+  --surface: #f8fafc;
+  --surface-alt: #f1f5f9;
+  --border: #e2e8f0;
+  --border-focus: #2b1b8c;
+  --shadow-sm: 0 1px 3px rgba(15, 23, 42, 0.08);
+  --shadow-md: 0 4px 14px rgba(15, 23, 42, 0.1);
+  --shadow-lg: 0 10px 30px rgba(15, 23, 42, 0.12);
+  --shadow-drawer: -8px 0 32px rgba(15, 23, 42, 0.2);
+
+  /* Difficulty colors */
+  --d2: #2e9e4f; /* Easy */
+  --d3: #f0a81c; /* Medium */
+  --d4: #e0393e; /* Hard */
+  --d5: #8a35b8; /* Very Hard */
+  --d6: #2f6fd6; /* Extremely Hard */
+
+  /* Completed accents */
+  --success: #10b981;
+  --success-bg: #ecfdf5;
+  --success-border: #a7f3d0;
+
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+}
+
+[data-theme="dark"] {
+  --navy: #818cf8;
+  --navy-light: #a5b4fc;
+  --navy-glow: rgba(129, 140, 248, 0.18);
+  --blue: #60a5fa;
+  --ink: #f1f5f9;
+  --ink-secondary: #cbd5e1;
+  --ink-muted: #94a3b8;
+  --bg: #090d16;
+  --sheet: #111827;
+  --surface: #182234;
+  --surface-alt: #1e293b;
+  --border: #26334d;
+  --border-focus: #818cf8;
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.5);
+  --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.6);
+  --shadow-drawer: -8px 0 36px rgba(0, 0, 0, 0.7);
+
+  --success: #34d399;
+  --success-bg: rgba(16, 185, 129, 0.15);
+  --success-border: rgba(16, 185, 129, 0.35);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  font-family: 'Nunito', system-ui, -apple-system, sans-serif;
+  color: var(--ink);
+  padding: 18px 14px 40px;
+  line-height: 1.5;
+  transition: background 0.3s ease, color 0.3s ease;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   MAIN CONTAINER
+   ========================================================================== */
+.sheet {
+  max-width: 1220px;
+  margin: 0 auto;
+  background: var(--sheet);
+  border-radius: var(--radius-lg);
+  padding: 24px 22px 28px;
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border);
+  position: relative;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+
+/* ==========================================================================
+   HEADER & ACTIONS
+   ========================================================================== */
+.header-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 18px;
+}
+.brand-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--navy-glow);
+  color: var(--navy);
+  font-size: 11px;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  padding: 7px 12px;
+  border-radius: var(--radius-full);
+  font-size: 12.5px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s var(--ease);
+}
+.btn-icon:hover {
+  background: var(--surface-alt);
+  border-color: var(--navy);
+  color: var(--navy);
+  transform: translateY(-1px);
+}
+.btn-icon:active { transform: translateY(0); }
+
+.title-area {
+  text-align: center;
+  margin: 6px 0 18px;
+}
+h1 {
+  margin: 0 0 6px;
+  font-weight: 900;
+  font-size: clamp(28px, 5.2vw, 46px);
+  color: var(--navy);
+  letter-spacing: -0.5px;
+  line-height: 1.15;
+}
+h1 span {
+  color: var(--ink);
+}
+.sub {
+  font-family: 'Caveat', cursive;
+  font-size: clamp(20px, 3.2vw, 25px);
+  color: var(--blue);
+  margin: 0 auto;
+  max-width: 680px;
+  line-height: 1.25;
+}
+
+/* ==========================================================================
+   PROGRESS DASHBOARD
+   ========================================================================== */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+.stat-card:hover {
+  transform: translateY(-2px);
+  border-color: var(--navy);
+}
+.stat-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  display: grid;
+  place-items: center;
+  font-size: 20px;
+  flex-shrink: 0;
+  background: var(--navy-glow);
+  color: var(--navy);
+}
+.stat-card.success .stat-icon {
+  background: var(--success-bg);
+  color: var(--success);
+}
+.stat-card.warning .stat-icon {
+  background: rgba(240, 168, 28, 0.15);
+  color: var(--d3);
+}
+.stat-info {
+  flex: 1;
+  min-width: 0;
+}
+.stat-val {
+  font-size: 22px;
+  font-weight: 900;
+  line-height: 1.1;
+  color: var(--ink);
+}
+.stat-lbl {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--ink-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-top: 2px;
+}
+
+/* Progress bar container */
+.overall-progress-bar-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.progress-bar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12.5px;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.progress-status-badge {
+  font-size: 11.5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  background: var(--navy-glow);
+  color: var(--navy);
+  font-weight: 800;
+}
+.progress-status-badge.complete {
+  background: var(--success-bg);
+  color: var(--success);
+}
+.progress-track {
+  height: 10px;
+  background: var(--surface-alt);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+  position: relative;
+}
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  background: linear-gradient(90deg, #1f6fd0, #2b1b8c, #10b981);
+  border-radius: var(--radius-full);
+  transition: width 0.6s var(--ease);
+}
+
+/* ==========================================================================
+   GUIDE & DIFFICULTY CARDS
+   ========================================================================== */
+.cards {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.card {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 16px;
+  font-size: 13px;
+  flex: 1 1 290px;
+  line-height: 1.45;
+  background: var(--surface);
+}
+.card b {
+  color: var(--navy);
+  display: block;
+  font-size: 13.5px;
+  margin-bottom: 4px;
+}
+.card ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 14px;
+}
+.card li {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 700;
+}
+.dot {
+  display: inline-grid;
+  place-items: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 10.5px;
+  font-weight: 800;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
+   SEARCH & FILTERS TOOLBAR
+   ========================================================================== */
+.toolbar {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+  box-shadow: var(--shadow-sm);
+}
+.search-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  position: relative;
+}
+.search-box-wrap {
+  position: relative;
+  flex: 1;
+}
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--ink-muted);
+  pointer-events: none;
+  font-size: 14px;
+}
+.search-input {
+  width: 100%;
+  height: 42px;
+  padding: 0 40px 0 36px;
+  border: 1.5px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--sheet);
+  color: var(--ink);
+  font: 600 13.5px 'Nunito', sans-serif;
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+.search-input:focus {
+  border-color: var(--navy);
+  box-shadow: 0 0 0 3px var(--navy-glow);
+}
+.search-input::placeholder {
+  color: var(--ink-muted);
+}
+.clear-search-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--ink-muted);
+  cursor: pointer;
+  font-size: 16px;
+  padding: 4px;
+  line-height: 1;
+  display: none;
+}
+.clear-search-btn:hover { color: var(--ink); }
+
+.filter-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.filter-select {
+  height: 34px;
+  padding: 0 28px 0 10px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--sheet) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath fill='none' stroke='%23718096' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round' d='M1 1l4 4 4-4'/%3E%3C/svg%3E") no-repeat right 10px center;
+  color: var(--ink);
+  font: 700 12px 'Nunito', sans-serif;
+  cursor: pointer;
+  appearance: none;
+  outline: none;
+}
+.filter-select:focus {
+  border-color: var(--navy);
+}
+.btn-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: auto;
+}
+.btn-tool {
+  font: 800 12px 'Nunito', sans-serif;
+  border: 1px solid var(--border);
+  color: var(--ink);
+  background: var(--sheet);
+  border-radius: var(--radius-sm);
+  padding: 7px 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.btn-tool:hover {
+  background: var(--surface-alt);
+  border-color: var(--navy);
+  color: var(--navy);
+}
+.btn-tool.active-filter {
+  background: var(--navy-glow);
+  border-color: var(--navy);
+  color: var(--navy);
+}
+
+/* ==========================================================================
+   NO SEARCH RESULTS CARD
+   ========================================================================== */
+.no-results {
+  display: none;
+  text-align: center;
+  padding: 40px 20px;
+  background: var(--surface);
+  border: 1.5px dashed var(--border);
+  border-radius: var(--radius-md);
+  margin: 20px 0;
+}
+.no-results h3 {
+  margin: 0 0 6px;
+  font-size: 18px;
+  color: var(--navy);
+}
+.no-results p {
+  margin: 0 0 16px;
+  color: var(--ink-muted);
+  font-size: 13.5px;
+}
+
+/* ==========================================================================
+   MIND MAP CONTAINER & SVG CONNECTIONS
+   ========================================================================== */
+.map {
+  position: relative;
+  padding-left: 0;
+  margin-top: 10px;
+}
+svg.links {
+  position: absolute;
+  left: 0;
+  top: 0;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 0;
+}
+svg.links path {
+  fill: none;
+  stroke-linecap: round;
+}
+.hubp {
+  stroke-width: 2.5;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 0.8s ease-out forwards;
+  animation-delay: calc(var(--n) * 45ms + 0.2s);
+}
+.subp {
+  stroke-width: 2;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 0.55s ease-out forwards;
+  animation-delay: var(--dl);
+}
+@keyframes draw { to { stroke-dashoffset: 0; } }
+.subg { transition: opacity 0.25s; }
+.subg.out { opacity: 0; }
+
+/* Hub styling */
+.hub {
+  position: absolute;
+  left: 6px;
+  top: calc(50% - 75px);
+  width: 150px;
+  height: 150px;
+  z-index: 2;
+}
+.hub .ring {
+  position: absolute;
+  inset: -9px;
+  border: 1.5px dashed var(--navy);
+  border-radius: 50%;
+  animation: spin 40s linear infinite;
+}
+.hub .core {
+  position: absolute;
+  inset: 0;
+  border: 4px solid var(--navy);
+  border-radius: 50%;
+  background: var(--sheet);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  box-shadow: 0 0 20px var(--navy-glow);
+  animation: breathe 4s ease-in-out infinite;
+}
+.core b {
+  font-size: 32px;
+  line-height: 1;
+  color: var(--navy);
+  font-weight: 900;
+}
+.core i {
+  font-style: normal;
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--navy);
+  letter-spacing: 1px;
+  margin-bottom: 4px;
+}
+.core small {
+  font-size: 8.5px;
+  font-weight: 700;
+  color: var(--ink-secondary);
+  line-height: 1.25;
+  max-width: 100px;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+@keyframes breathe { 50% { box-shadow: 0 0 0 8px var(--navy-glow); } }
+
+/* ==========================================================================
+   CATEGORY ROWS & TILES
+   ========================================================================== */
+.rows {
+  position: relative;
+  z-index: 1;
+  margin-left: 235px;
+}
+.row {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  column-gap: clamp(40px, 7vw, 84px);
+  align-items: center;
+  min-height: 56px;
+  padding: 6px 0;
+  animation: rowin 0.5s var(--ease) both;
+  animation-delay: calc(var(--n) * 45ms + 0.1s);
+}
+@keyframes rowin {
+  from { opacity: 0; transform: translateX(-14px); }
+  to { opacity: 1; transform: none; }
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+}
+
+.cat {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 46px;
+  padding: 0 12px;
+  border: 2px solid var(--c);
+  border-radius: var(--radius-md);
+  background: var(--sheet);
+  font: 800 13px 'Nunito', sans-serif;
+  color: var(--ink);
+  text-align: left;
+  cursor: pointer;
+  transition: transform 0.25s var(--ease), background 0.25s, box-shadow 0.25s;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+.cat:hover {
+  transform: translateX(4px);
+  background: var(--t);
+}
+.cat:focus-visible {
+  outline: 3px solid var(--c);
+  outline-offset: 2px;
+}
+.row.open .cat {
+  background: var(--t);
+  box-shadow: 0 0 0 3px var(--t);
+}
+
+.ico {
+  min-width: 26px;
+  text-align: center;
+  color: var(--c);
+  font-size: 14px;
+  font-weight: 800;
+}
+.ico.sm { font-size: 10px; }
+.nm {
+  white-space: nowrap;
+  font-weight: 800;
+  letter-spacing: -0.2px;
+  flex: 1;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cat-progress {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+  background: rgba(0, 0, 0, 0.06);
+  color: var(--ink-secondary);
+  margin-right: 2px;
+  letter-spacing: 0.2px;
+}
+[data-theme="dark"] .cat-progress {
+  background: rgba(255, 255, 255, 0.1);
+}
+.cat-progress.complete {
+  background: var(--success-bg);
+  color: var(--success);
+  border: 1px solid var(--success-border);
+}
+.chev {
+  margin-left: 4px;
+  font-size: 20px;
+  line-height: 1;
+  color: var(--c);
+  transition: transform 0.35s var(--ease);
+}
+.row.open .chev { transform: rotate(90deg); }
+
+/* Description accordion */
+.dwrap, .kids {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.55s var(--ease);
+}
+.row.open .dwrap, .row.open .kids {
+  grid-template-rows: 1fr;
+}
+.dwrap > div, .kids > .inner {
+  min-height: 0;
+  overflow: hidden;
+}
+.desc {
+  font-size: 12px;
+  line-height: 1.35;
+  color: var(--ink-secondary);
+  padding: 8px 6px 4px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+.row.open .desc {
+  opacity: 1;
+  transition: opacity 0.5s 0.25s;
+}
+
+/* ==========================================================================
+   EXPANDED SUB-PATTERNS & GUIDANCE CARDS
+   ========================================================================== */
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 230px;
+  gap: 36px;
+  align-items: center;
+  padding: 8px 10px 18px 2px;
+}
+.subs {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.grp {
+  display: flex;
+  align-items: center;
+  gap: 40px;
+}
+.grp > .subs { flex: 1; }
+
+.item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 4px 6px 6px;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.2s, transform 0.2s;
+  border-radius: var(--radius-sm);
+}
+.row.open .item {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.4s calc(var(--i) * 70ms + 0.15s), transform 0.6s cubic-bezier(0.2, 1.2, 0.3, 1) calc(var(--i) * 70ms + 0.15s);
+}
+.item::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2px;
+  background: var(--c);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+.row.open .item::after {
+  transform: none;
+  transition: transform 0.55s ease calc(var(--i) * 70ms + 0.3s);
+}
+.item.parent { flex: 0 0 auto; }
+
+/* Custom Checkbox for Pattern Completion */
+.check-btn {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  border: 1.5px solid var(--border);
+  background: var(--sheet);
+  cursor: pointer;
+  color: transparent;
+  font-size: 12px;
+  font-weight: 900;
+  padding: 0;
+  flex-shrink: 0;
+  transition: all 0.2s ease;
+  z-index: 1;
+}
+.check-btn:hover {
+  border-color: var(--success);
+  transform: scale(1.1);
+}
+.item.completed .check-btn {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+.item.completed .lbl {
+  color: var(--ink-muted);
+  text-decoration: line-through;
+}
+
+.lbl-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-align: left;
+  flex: 1 1 auto;
+}
+.lbl-btn:hover .lbl {
+  color: var(--navy);
+}
+.lbl {
+  font-size: 13.5px;
+  font-weight: 700;
+  white-space: nowrap;
+  transition: color 0.2s ease;
+}
+
+.badge {
+  position: relative;
+  z-index: 1;
+  flex: 0 0 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--sheet);
+  border: 2px solid var(--b);
+  color: var(--b);
+  font-size: 11px;
+  font-weight: 800;
+  display: grid;
+  place-items: center;
+  transform: scale(0);
+}
+.row.open .badge {
+  transform: scale(1);
+  transition: transform 0.5s cubic-bezier(0.3, 1.8, 0.5, 1) calc(var(--i) * 70ms + 0.5s);
+}
+
+.btn-guide-pill {
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--ink-muted);
+  font: 700 11px 'Nunito', sans-serif;
+  padding: 2px 7px;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+.btn-guide-pill:hover {
+  background: var(--navy-glow);
+  border-color: var(--navy);
+  color: var(--navy);
+  transform: scale(1.05);
+}
+
+/* Why it matters box */
+.why {
+  border: 1.5px solid var(--c);
+  border-radius: var(--radius-md);
+  padding: 10px 14px;
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--ink-secondary);
+  background: var(--sheet);
+  opacity: 0;
+  transform: translateY(8px) scale(0.96);
+  transition: opacity 0.2s, transform 0.2s;
+  box-shadow: var(--shadow-sm);
+}
+.why b {
+  display: block;
+  color: var(--c);
+  margin-bottom: 4px;
+  font-size: 13px;
+}
+.row.open .why {
+  opacity: 1;
+  transform: none;
+  transition: opacity 0.5s calc(var(--i) * 70ms + 0.3s), transform 0.6s var(--ease) calc(var(--i) * 70ms + 0.3s);
+}
+
+/* ==========================================================================
+   LEARNING GUIDANCE SLIDE-OVER DRAWER
+   ========================================================================== */
+.drawer-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 30, 0.6);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+.drawer-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(580px, 100vw);
+  background: var(--sheet);
+  border-left: 1px solid var(--border);
+  box-shadow: var(--shadow-drawer);
+  z-index: 1001;
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.drawer-backdrop.active .drawer {
+  transform: translateX(0);
+}
+.drawer-header {
+  padding: 18px 22px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 14px;
+  background: var(--surface);
+}
+.drawer-title-area {
+  flex: 1;
+}
+.drawer-meta-tags {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 6px;
+  flex-wrap: wrap;
+}
+.drawer-cat-tag {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.drawer-diff-tag {
+  font-size: 11px;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  color: #fff;
+}
+.drawer-title {
+  margin: 0;
+  font-size: 22px;
+  font-weight: 900;
+  color: var(--ink);
+  line-height: 1.2;
+}
+.drawer-close {
+  background: var(--sheet);
+  border: 1px solid var(--border);
+  color: var(--ink-muted);
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 18px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  flex-shrink: 0;
+}
+.drawer-close:hover {
+  background: var(--surface-alt);
+  color: var(--ink);
+}
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.drawer-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.section-heading {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13.5px;
+  font-weight: 800;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin: 0;
+}
+.section-content {
+  font-size: 13.5px;
+  line-height: 1.55;
+  color: var(--ink);
+}
+.clues-list {
+  margin: 0;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.clues-list li {
+  font-size: 13.5px;
+  color: var(--ink);
+}
+.complexity-box {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  padding: 10px 14px;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+}
+.pitfalls-box {
+  background: rgba(224, 57, 62, 0.08);
+  border: 1px solid rgba(224, 57, 62, 0.3);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--ink);
+}
+[data-theme="dark"] .pitfalls-box {
+  background: rgba(224, 57, 62, 0.15);
+  border-color: rgba(224, 57, 62, 0.4);
+}
+
+/* Code template container */
+.code-container {
+  position: relative;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.code-header {
+  background: #1e2433;
+  color: #94a3b8;
+  padding: 6px 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: 'JetBrains Mono', monospace;
+}
+.copy-code-btn {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
+  font-size: 10.5px;
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.copy-code-btn:hover { background: rgba(255, 255, 255, 0.2); }
+pre.code-block {
+  margin: 0;
+  padding: 14px;
+  background: #0f1422;
+  color: #e2e8f0;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.5;
+  overflow-x: auto;
+}
+
+/* Problems badges */
+.problems-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.problem-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+.problem-pill:hover {
+  border-color: var(--navy);
+  color: var(--navy);
+  transform: translateY(-1px);
+}
+.diff-indicator {
+  font-size: 10px;
+  font-weight: 800;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+.diff-indicator.Easy { background: rgba(46, 158, 79, 0.15); color: var(--d2); }
+.diff-indicator.Medium { background: rgba(240, 168, 28, 0.15); color: var(--d3); }
+.diff-indicator.Hard { background: rgba(224, 57, 62, 0.15); color: var(--d4); }
+
+.drawer-footer {
+  padding: 14px 22px;
+  border-top: 1px solid var(--border);
+  background: var(--surface);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+.drawer-complete-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-full);
+  background: var(--sheet);
+  border: 1.5px solid var(--border);
+  font: 800 13px 'Nunito', sans-serif;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.drawer-complete-toggle:hover {
+  border-color: var(--success);
+}
+.drawer-complete-toggle.done {
+  background: var(--success);
+  border-color: var(--success);
+  color: #fff;
+}
+.drawer-nav-btns {
+  display: flex;
+  gap: 6px;
+}
+
+/* ==========================================================================
+   RESET CONFIRMATION MODAL
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 15, 30, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 1050;
+  display: grid;
+  place-items: center;
+  padding: 20px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.25s ease, visibility 0.25s ease;
+}
+.modal-backdrop.active {
+  opacity: 1;
+  visibility: visible;
+}
+.modal-card {
+  background: var(--sheet);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  max-width: 440px;
+  width: 100%;
+  box-shadow: var(--shadow-lg);
+  transform: scale(0.95);
+  transition: transform 0.25s var(--ease);
+}
+.modal-backdrop.active .modal-card {
+  transform: scale(1);
+}
+.modal-card h3 {
+  margin: 0 0 10px;
+  font-size: 20px;
+  color: var(--ink);
+}
+.modal-card p {
+  margin: 0 0 20px;
+  font-size: 13.5px;
+  color: var(--ink-secondary);
+  line-height: 1.5;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+.btn-secondary {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--ink);
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font: 700 13px 'Nunito', sans-serif;
+  cursor: pointer;
+}
+.btn-danger {
+  background: #e0393e;
+  border: none;
+  color: #fff;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font: 800 13px 'Nunito', sans-serif;
+  cursor: pointer;
+}
+.btn-danger:hover { background: #c5292e; }
+
+/* Toast notifications */
+.toast {
+  position: fixed;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%) translateY(30px);
+  background: var(--ink);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 700;
+  box-shadow: var(--shadow-lg);
+  z-index: 1200;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s var(--ease);
+}
+.toast.active {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.hint {
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  color: var(--navy);
+  text-align: center;
+  margin: 24px 0 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN (TABLETS & MOBILE)
+   ========================================================================== */
+@media (max-width: 1024px) {
+  .hub { width: 112px; height: 112px; top: calc(50% - 56px); }
+  .core b { font-size: 26px; }
+  .core i { font-size: 12px; }
+  .core small { display: none; }
+  .rows { margin-left: 170px; }
+  .row { grid-template-columns: 210px minmax(0, 1fr); column-gap: 30px; }
+  .inner { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+}
+
+@media (max-width: 768px) {
+  body { padding: 10px 8px 24px; }
+  .sheet { padding: 16px 12px 20px; }
+  svg.links { display: none !important; }
+  .hub {
+    position: relative;
+    left: auto;
+    top: auto;
+    margin: 10px auto 22px;
+    width: 116px;
+    height: 116px;
+  }
+  .rows {
+    margin-left: 6px;
+    padding-left: 18px;
+    border-left: 3px solid var(--navy);
+  }
+  .row {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 0;
+    align-items: stretch;
+    min-height: 0;
+    padding: 7px 0;
+  }
+  .cat {
+    position: relative;
+    height: 48px;
+  }
+  .cat::before {
+    content: "";
+    position: absolute;
+    left: -21px;
+    top: 50%;
+    width: 19px;
+    border-top: 3px solid var(--c);
+  }
+  .kids { margin-left: 4px; }
+  .grp {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 10px;
+  }
+  .grp > .subs {
+    margin-left: 12px;
+    padding-left: 12px;
+    border-left: 2px solid var(--c);
+  }
+  .subs { gap: 10px; }
+  .item {
+    padding: 8px 10px;
+    background: var(--t);
+    border: 1.5px solid var(--c);
+    border-radius: var(--radius-sm);
+    align-items: center;
+  }
+  .item::after { display: none; }
+  .item::before {
+    content: "";
+    position: absolute;
+    left: -14px;
+    top: 50%;
+    width: 12px;
+    border-top: 2px solid var(--c);
+  }
+  .lbl { white-space: normal; }
+  .kids > .inner > .subs {
+    padding-left: 12px;
+    border-left: 2px solid var(--c);
+  }
+  .inner { padding: 10px 0 6px 0; }
+  .filter-row { flex-direction: column; align-items: stretch; }
+  .filter-group { width: 100%; }
+  .filter-select { flex: 1; }
+  .btn-group { width: 100%; justify-content: flex-end; }
+  .drawer { width: 100vw; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.01ms !important;
+    transition-delay: 0s !important;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="sheet">
+  <!-- Top bar with brand badge and theme/reset controls -->
+  <header class="header-top">
+    <div class="brand-badge">
+      <span>●</span> 16 Categories • 56 Patterns
+    </div>
+    <div class="header-actions">
+      <button class="btn-icon" id="theme-toggle" type="button" aria-label="Toggle theme">
+        <span id="theme-icon">🌙</span> <span id="theme-text">Dark</span>
+      </button>
+      <button class="btn-icon" id="reset-progress-btn" type="button" aria-label="Reset all progress">
+        <span>↺</span> <span>Reset Progress</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Title & Subtitle -->
+  <div class="title-area">
+    <h1>DSA PATTERN <span>MASTERY</span></h1>
+    <div class="sub">Master the Patterns. Recognize Algorithmic Clues. Crack Coding Interviews.</div>
+  </div>
+
+  <!-- Progress Overview Dashboard -->
+  <section class="dashboard" aria-label="Learning progress dashboard">
+    <div class="stat-card">
+      <div class="stat-icon">🎯</div>
+      <div class="stat-info">
+        <div class="stat-val" id="stat-total">56</div>
+        <div class="stat-lbl">Total Patterns</div>
+      </div>
+    </div>
+    <div class="stat-card success">
+      <div class="stat-icon">✓</div>
+      <div class="stat-info">
+        <div class="stat-val" id="stat-completed">0</div>
+        <div class="stat-lbl">Mastered</div>
+      </div>
+    </div>
+    <div class="stat-card warning">
+      <div class="stat-icon">⏳</div>
+      <div class="stat-info">
+        <div class="stat-val" id="stat-remaining">56</div>
+        <div class="stat-lbl">Remaining</div>
+      </div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-icon">📈</div>
+      <div class="stat-info">
+        <div class="stat-val" id="stat-pct">0%</div>
+        <div class="stat-lbl">Completion Rate</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overall Progress Bar Track -->
+  <div class="overall-progress-bar-wrap">
+    <div class="progress-bar-header">
+      <span id="progress-text-detail">Preparation Progress: 0 of 56 patterns completed</span>
+      <span class="progress-status-badge" id="progress-status-pill">Getting Started</span>
+    </div>
+    <div class="progress-track" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100">
+      <div class="progress-fill" id="progress-fill-bar"></div>
+    </div>
+  </div>
+
+  <!-- Guide & Difficulty Legend -->
+  <div class="cards">
+    <div class="card">
+      <b>Interactive Mindmap Guide</b>
+      Tap any pattern category to expand its sub-patterns. Click the checkbox (✓) to track completion. Click any pattern title or the <b>💡 Guide</b> badge to inspect problem clues, Big-O complexities, and verified recipes!
+    </div>
+    <div class="card">
+      <b>Interview Difficulty Guide</b>
+      <ul>
+        <li><span class="dot" style="background:var(--d2)">2</span>Easy</li>
+        <li><span class="dot" style="background:var(--d3)">3</span>Medium</li>
+        <li><span class="dot" style="background:var(--d4)">4</span>Hard</li>
+        <li><span class="dot" style="background:var(--d5)">5</span>Very Hard</li>
+        <li><span class="dot" style="background:var(--d6)">6</span>Extremely Hard</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Search & Filter Controls Toolbar -->
+  <section class="toolbar" aria-label="Search and filter controls">
+    <div class="search-row">
+      <div class="search-box-wrap">
+        <span class="search-icon">🔍</span>
+        <input class="search-input" id="search-input" type="search" placeholder="Search patterns, clues, keywords (e.g. sliding window, cycle, monotonic, O(n))..." autocomplete="off" spellcheck="false">
+        <button class="clear-search-btn" id="clear-search" type="button" aria-label="Clear search">✕</button>
+      </div>
+    </div>
+    <div class="filter-row">
+      <div class="filter-group">
+        <select class="filter-select" id="filter-diff" aria-label="Filter by difficulty">
+          <option value="all">All Difficulties</option>
+          <option value="2">Level 2 - Easy</option>
+          <option value="3">Level 3 - Medium</option>
+          <option value="4">Level 4 - Hard</option>
+          <option value="5">Level 5 - Very Hard</option>
+          <option value="6">Level 6 - Extremely Hard</option>
+        </select>
+        <select class="filter-select" id="filter-status" aria-label="Filter by completion status">
+          <option value="all">All Statuses</option>
+          <option value="todo">To-Do (Uncompleted)</option>
+          <option value="completed">Mastered (Completed)</option>
+        </select>
+        <select class="filter-select" id="filter-cat" aria-label="Filter by category">
+          <option value="all">All 16 Categories</option>
+        </select>
+      </div>
+      <div class="btn-group">
+        <button class="btn-tool" id="btn-expand-all" type="button">Expand All</button>
+        <button class="btn-tool" id="btn-collapse-all" type="button">Collapse All</button>
+        <button class="btn-tool" id="btn-reset-filters" type="button" style="display:none">Reset Filters</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Empty state for zero search results -->
+  <div class="no-results" id="no-results-box">
+    <h3>No matching DSA patterns found</h3>
+    <p>Try searching for different keywords, clear your filters, or search for "binary search", "bfs", "kmp", or "sliding window".</p>
+    <button class="btn-tool active-filter" id="btn-clear-search-fallback" type="button">Reset Search & Filters</button>
+  </div>
+
+  <!-- Mind Map Area -->
+  <main class="map" id="map">
+    <svg class="links" id="links" aria-hidden="true"></svg>
+    <div class="hub">
+      <div class="ring"></div>
+      <div class="core">
+        <b>DSA</b>
+        <i>PATTERNS</i>
+        <small>16 Essential Patterns to Crack Coding Interviews</small>
+      </div>
+    </div>
+    <div class="rows" id="rows"></div>
+  </main>
+
+  <p class="hint">Practice. Understand. Optimize. Repeat.</p>
+</div>
+
+<!-- ==========================================================================
+     LEARNING GUIDANCE SLIDE-OVER DRAWER
+     ========================================================================== -->
+<div class="drawer-backdrop" id="drawer-backdrop" aria-hidden="true">
+  <div class="drawer" role="dialog" aria-modal="true" aria-labelledby="drawer-title">
+    <div class="drawer-header">
+      <div class="drawer-title-area">
+        <div class="drawer-meta-tags">
+          <span class="drawer-cat-tag" id="drawer-cat-tag">ARRAYS</span>
+          <span class="drawer-diff-tag" id="drawer-diff-tag">Level 5</span>
+        </div>
+        <h2 class="drawer-title" id="drawer-title">Prefix Sum</h2>
+      </div>
+      <button class="drawer-close" id="drawer-close" type="button" aria-label="Close guidance drawer">✕</button>
+    </div>
+
+    <div class="drawer-body">
+      <!-- 1. What it means -->
+      <div class="drawer-section">
+        <h3 class="section-heading">💡 Core Intuition</h3>
+        <div class="section-content" id="drawer-summary"></div>
+      </div>
+
+      <!-- 2. When to recognize it -->
+      <div class="drawer-section">
+        <h3 class="section-heading">🔍 Problem Clues & Triggers</h3>
+        <ul class="clues-list" id="drawer-clues"></ul>
+      </div>
+
+      <!-- 3. Complexity -->
+      <div class="drawer-section">
+        <h3 class="section-heading">⚡ Verified Big-O Complexity</h3>
+        <div class="complexity-box" id="drawer-complexity"></div>
+      </div>
+
+      <!-- 4. Code Recipe -->
+      <div class="drawer-section">
+        <h3 class="section-heading">💻 Algorithmic Recipe</h3>
+        <div class="code-container">
+          <div class="code-header">
+            <span>JavaScript / Python Concept Template</span>
+            <button class="copy-code-btn" id="copy-code-btn" type="button">Copy Recipe</button>
+          </div>
+          <pre class="code-block"><code id="drawer-code"></code></pre>
+        </div>
+      </div>
+
+      <!-- 5. Common Pitfalls -->
+      <div class="drawer-section">
+        <h3 class="section-heading">⚠️ Traps & Common Mistakes</h3>
+        <div class="pitfalls-box" id="drawer-pitfalls"></div>
+      </div>
+
+      <!-- 6. Classic Must-Solve Problems -->
+      <div class="drawer-section">
+        <h3 class="section-heading">🎯 Must-Solve Benchmark Problems</h3>
+        <div class="problems-grid" id="drawer-problems"></div>
+      </div>
+    </div>
+
+    <div class="drawer-footer">
+      <button class="drawer-complete-toggle" id="drawer-complete-toggle" type="button">
+        <span id="drawer-check-icon">○</span> <span id="drawer-toggle-text">Mark as Completed</span>
+      </button>
+      <div class="drawer-nav-btns">
+        <button class="btn-tool" id="drawer-prev" type="button" aria-label="Previous pattern">← Prev</button>
+        <button class="btn-tool" id="drawer-next" type="button" aria-label="Next pattern">Next →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==========================================================================
+     RESET CONFIRMATION MODAL
+     ========================================================================== -->
+<div class="modal-backdrop" id="reset-modal" aria-hidden="true">
+  <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <h3 id="modal-title">Reset Your Preparation Progress?</h3>
+    <p>This will uncheck all completed patterns and clear your stored progress. This action cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="btn-secondary" id="modal-cancel-btn" type="button">Cancel</button>
+      <button class="btn-danger" id="modal-confirm-btn" type="button">Yes, Reset Progress</button>
+    </div>
+  </div>
+</div>
+
+<!-- Toast notification component -->
+<div class="toast" id="toast-notify" role="status" aria-live="polite"></div>
+
+<!-- ==========================================================================
+     JAVASCRIPT LOGIC & DSA PATTERN DATA
+     ========================================================================== -->
+<script>
+// Verified difficulty color palette
+const DIFF = { 2: "#2e9e4f", 3: "#f0a81c", 4: "#e0393e", 5: "#8a35b8", 6: "#2f6fd6" };
+const DIFF_NAMES = { 2: "Easy", 3: "Medium", 4: "Hard", 5: "Very Hard", 6: "Extremely Hard" };
+
+// Complete 16 DSA Categories: [name, icon, color, tint, description, why, items]
+// item: [label, difficulty, children?]
+const DATA = [
+ ["ARRAYS","[ ]","#4b2a9c","#efeafb","Foundation of many problems. Master indexing & traversal.","Arrays are everywhere. Builds your problem-solving base.",[["Prefix Sum",5],["Sliding Window",6],["Kadane’s / Subarray",3],["Binary Search",2]]],
+ ["STRING","T","#e0457b","#fdeaf1","Crucial for pattern matching and parsing problems.","Helps in text processing, search, and pattern recognition.",[["Two Pointers",5],["Pattern Matching (KMP)",4],["Anagram / Frequency Count",3],["Palindrome",3]]],
+ ["HASHING","#","#2f6fd6","#e8f0fd","Fast lookups and frequency-based problems.","Optimizes time complexity using efficient lookups.",[["Hash Map",5],["Frequency Map",4],["Count Distinct Elements",3],["Group Anagrams",3],["Two Sum",4]]],
+ ["STACK","≣","#2e9e4f","#e7f6ec","LIFO structure for tracking states and reversals.","Useful for parsing, backtracking & solving nested problems.",[["Monotonic Stack",4],["Balanced Parentheses",3],["Next Greater / Smaller",4],["Min Stack",2]]],
+ ["QUEUE / DEQUE","⊏⊐","#f08a24","#fef0e0","FIFO or double-ended queues for optimized range operations.","Helps in solving range, window & scheduling problems.",[["Sliding Window Maximum",4],["First Negative in Window",3],["Deque Optimization",3],["Design Queue",2]]],
+ ["LINKED LIST","o-o","#e8b923","#fdf6dc","Dynamic data structure for sequential operations.","Important for real-world data handling & memory efficiency.",[["Pointer Techniques",0,[["Fast-Slow",2],["Cycle Detection",2]]],["Reversal",3],["Merge Lists",3]]],
+ ["TREES","♧","#e04a5a","#fdebed","Hierarchical data structure used in many real systems.","Tree problems are frequent in interviews & real-world apps.",[["Binary Tree Traversal",4],["Binary Search Tree",4],["Lowest Common Ancestor",3],["Tree Construction",3]]],
+ ["RECURSION","↻","#4a2fa0","#eeebfa","Break problems into smaller subproblems.","Builds problem-solving thinking & optimization skills.",[["Backtracking",5],["Divide & Conquer",4],["Tree / Graph Recursion",3],["Memoization",3]]],
+ ["HEAP","△","#1fb2a6","#e3f7f5","Priority-based structure using heap property.","Essential for priority based & top K problems.",[["Priority Queue",3],["Top K Elements",3],["Heapify / Heap Sort",2]]],
+ ["GRAPHS","⌘","#b5651d","#f8eee4","Model relationships & connections.","Core for network, routing, and dependency problems.",[["BFS",4],["DFS",4],["Shortest Path (Dijkstra)",4],["Topological Sort",3]]],
+ ["TRIE","⑃","#d9363e","#fcebec","Prefix tree for efficient search operations.","Optimizes prefix search & auto-complete systems.",[["Insert / Search",3],["Prefix Problems",3],["Word Break",3]]],
+ ["DYNAMIC PROGRAMMING","DP","#2f8f5b","#e6f5ec","Solve complex problems by breaking into states.","Key for optimization & solving hard problems efficiently.",[["1D DP",4],["2D DP",4],["Knapsack DP",3],["DP on Trees",3]]],
+ ["GREEDY","◎","#2a6fb0","#e6f0fa","Make optimal local choices to get a global solution.","Simple yet powerful for optimization problems.",[["Activity Selection",3],["Interval Scheduling",3],["Huffman Coding",2]]],
+ ["BIT MANIPULATION","1010","#8e2a9e","#f4e8f7","Work with bits for space & time efficiency.","Essential for low-level & high-performance problems.",[["Basic Operations",3],["Counting Set Bits",3],["XOR Tricks",3]]],
+ ["ADVANCED PATTERNS","☆","#e8892a","#fef0e0","Advanced concepts that combine multiple ideas.","Used in complex real-world & interview level problems.",[["Two Pointers",4],["Meet in the Middle",3],["Sweep Line",2],["Prefix Sum",3]]],
+ ["RANGE STRUCTURES","▽","#f0b323","#fdf6dc","Data structures for range queries & updates.","Crucial for efficient range query optimizations.",[["Segment Tree",3],["Fenwick Tree (BIT)",3]]]
+];
+
+// Helper to generate canonical pattern IDs
+function slugify(str) {
+  return str.toLowerCase().replace(/['’]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+}
+function getPatternKey(catName, itemName) {
+  return `${slugify(catName)}_${slugify(itemName)}`;
+}
+
+// Complete verified learning guidance dictionary for all 56 patterns
+const GUIDANCE = {
+  // Category 1: ARRAYS
+  "arrays_prefix-sum": {
+    name: "Prefix Sum", category: "ARRAYS", difficulty: 5,
+    summary: "Precomputes cumulative array totals so contiguous subarray sums can be answered in O(1) time.",
+    clues: ["Multiple range sum queries on static array", "Subarrays with sum equal to target K", "Balance between two elements (equal 0s and 1s)"],
+    intuition: "Store running totals pref[i] = pref[i-1] + arr[i]. Subarray sum arr[L..R] is pref[R] - pref[L-1]. Pair with a Hash Map to find complement (currentSum - K) in O(1).",
+    complexity: "Time: O(N) build, O(1) query | Space: O(N) auxiliary",
+    pitfalls: "Off-by-one errors with 0-based vs 1-based indexing; forgetting to initialize hash map with { 0: 1 } for subarrays starting at index 0.",
+    problems: [{ id: "LC 560", name: "Subarray Sum Equals K", diff: "Medium" }, { id: "LC 303", name: "Range Sum Query - Immutable", diff: "Easy" }, { id: "LC 525", name: "Contiguous Array", diff: "Medium" }],
+    code: `function subarraySum(nums, k) {\n  let count = 0, sum = 0;\n  const map = new Map([[0, 1]]);\n  for (const n of nums) {\n    sum += n;\n    if (map.has(sum - k)) count += map.get(sum - k);\n    map.set(sum, (map.get(sum) || 0) + 1);\n  }\n  return count;\n}`
+  },
+  "arrays_sliding-window": {
+    name: "Sliding Window", category: "ARRAYS", difficulty: 6,
+    summary: "Maintains a dynamic range [left, right] to evaluate properties without re-scanning elements.",
+    clues: ["Contiguous subarray/substring optimization", "Longest or shortest window with condition (e.g. sum ≥ K)", "Fixed window of size K (maximum average of length K)"],
+    intuition: "Expand right pointer to include elements until condition met or violated. Contract left pointer to optimize length or restore validity.",
+    complexity: "Time: O(N) linear amortized | Space: O(K) or O(1)",
+    pitfalls: "Resetting inner loops causing accidental O(N²); forgetting to decrement frequencies when shrinking from the left.",
+    problems: [{ id: "LC 3", name: "Longest Substring Without Repeating Characters", diff: "Medium" }, { id: "LC 209", name: "Minimum Size Subarray Sum", diff: "Medium" }, { id: "LC 76", name: "Minimum Window Substring", diff: "Hard" }],
+    code: `function minSubArrayLen(target, nums) {\n  let l = 0, sum = 0, minLen = Infinity;\n  for (let r = 0; r < nums.length; r++) {\n    sum += nums[r];\n    while (sum >= target) {\n      minLen = Math.min(minLen, r - l + 1);\n      sum -= nums[l++];\n    }\n  }\n  return minLen === Infinity ? 0 : minLen;\n}`
+  },
+  "arrays_kadanes-subarray": {
+    name: "Kadane’s / Subarray", category: "ARRAYS", difficulty: 3,
+    summary: "Linear single-pass DP finding maximum contiguous subarray sum by deciding whether to extend or restart.",
+    clues: ["Maximum sum contiguous subarray", "Mixed positive and negative numbers", "Circular subarray maximum sum variant"],
+    intuition: "At index i, currentMax = max(nums[i], currentMax + nums[i]). If previous running sum is negative, drop it and restart fresh.",
+    complexity: "Time: O(N) single pass | Space: O(1) in-place",
+    pitfalls: "Initializing max_so_far to 0 instead of nums[0] or -Infinity, failing when all numbers are negative.",
+    problems: [{ id: "LC 53", name: "Maximum Subarray", diff: "Medium" }, { id: "LC 918", name: "Maximum Sum Circular Subarray", diff: "Medium" }, { id: "LC 152", name: "Maximum Product Subarray", diff: "Medium" }],
+    code: `function maxSubArray(nums) {\n  let cur = nums[0], max = nums[0];\n  for (let i = 1; i < nums.length; i++) {\n    cur = Math.max(nums[i], cur + nums[i]);\n    max = Math.max(max, cur);\n  }\n  return max;\n}`
+  },
+  "arrays_binary-search": {
+    name: "Binary Search", category: "ARRAYS", difficulty: 2,
+    summary: "Halves monotonic candidate space repeatedly to locate target values or optimal thresholds in O(log N).",
+    clues: ["Sorted or rotated sorted array", "First or last occurrence of target", "Binary search on answer ('minimize the maximum', Koko Eating Bananas)"],
+    intuition: "Maintain low and high pointers. Check midpoint mid = low + ((high - low) >> 1). Eliminate half the space based on comparison.",
+    complexity: "Time: O(log N) | Space: O(1)",
+    pitfalls: "Integer overflow with (low + high) / 2; infinite loops caused by low = mid instead of low = mid + 1 without proper ceiling.",
+    problems: [{ id: "LC 704", name: "Binary Search", diff: "Easy" }, { id: "LC 33", name: "Search in Rotated Sorted Array", diff: "Medium" }, { id: "LC 875", name: "Koko Eating Bananas", diff: "Medium" }],
+    code: `function binarySearch(nums, target) {\n  let l = 0, r = nums.length - 1;\n  while (l <= r) {\n    const mid = l + Math.floor((r - l) / 2);\n    if (nums[mid] === target) return mid;\n    if (nums[mid] < target) l = mid + 1;\n    else r = mid - 1;\n  }\n  return -1;\n}`
+  },
+
+  // Category 2: STRING
+  "string_two-pointers": {
+    name: "Two Pointers", category: "STRING", difficulty: 5,
+    summary: "Using inward-moving pointers to verify palindromes, partition characters, or reverse in-place.",
+    clues: ["Valid palindrome checking skipping non-alphanumeric", "Reversing strings or vowels", "Comparing characters from both ends inward"],
+    intuition: "Left at 0, right at n - 1. Compare elements, skip invalid characters with while loops, and advance inward.",
+    complexity: "Time: O(N) | Space: O(1) in-place",
+    pitfalls: "Forgetting left < right check inside inner skip loops; creating full string copies inside loops in immutable languages.",
+    problems: [{ id: "LC 125", name: "Valid Palindrome", diff: "Easy" }, { id: "LC 344", name: "Reverse String", diff: "Easy" }, { id: "LC 680", name: "Valid Palindrome II", diff: "Easy" }],
+    code: `function isPalindrome(s) {\n  let l = 0, r = s.length - 1;\n  const isAlphaNum = c => /[a-z0-9]/i.test(c);\n  while (l < r) {\n    while (l < r && !isAlphaNum(s[l])) l++;\n    while (l < r && !isAlphaNum(s[r])) r--;\n    if (s[l].toLowerCase() !== s[r].toLowerCase()) return false;\n    l++; r--;\n  }\n  return true;\n}`
+  },
+  "string_pattern-matching-kmp": {
+    name: "Pattern Matching (KMP)", category: "STRING", difficulty: 4,
+    summary: "Linear-time substring search using a precomputed Longest Prefix Suffix (LPS) table to skip redundant re-checks.",
+    clues: ["Linear time needle in haystack search", "Repeated substring patterns", "Shortest palindrome by prefix addition"],
+    intuition: "Compute LPS table for pattern. When a character mismatch occurs, jump pattern index j = lps[j-1] without rewinding the text pointer.",
+    complexity: "Time: O(N + M) | Space: O(M) for LPS array",
+    pitfalls: "Off-by-one errors when updating LPS index; failing to advance text index when mismatch occurs at pattern index 0.",
+    problems: [{ id: "LC 28", name: "Find the Index of the First Occurrence", diff: "Easy" }, { id: "LC 459", name: "Repeated Substring Pattern", diff: "Easy" }, { id: "LC 214", name: "Shortest Palindrome", diff: "Hard" }],
+    code: `function strStr(haystack, needle) {\n  if (!needle) return 0;\n  const lps = new Array(needle.length).fill(0);\n  let len = 0, i = 1;\n  while (i < needle.length) {\n    if (needle[i] === needle[len]) lps[i++] = ++len;\n    else if (len > 0) len = lps[len - 1];\n    else lps[i++] = 0;\n  }\n  let h = 0, n = 0;\n  while (h < haystack.length) {\n    if (haystack[h] === needle[n]) { h++; n++; }\n    if (n === needle.length) return h - n;\n    if (h < haystack.length && haystack[h] !== needle[n]) {\n      n !== 0 ? (n = lps[n - 1]) : h++;\n    }\n  }\n  return -1;\n}`
+  },
+  "string_anagram-frequency-count": {
+    name: "Anagram / Frequency Count", category: "STRING", difficulty: 3,
+    summary: "Using fixed-size frequency tables to verify permutations and detect anagram substrings.",
+    clues: ["Valid anagram between two strings", "Find all anagram indices in text", "Sliding window permutation check"],
+    intuition: "Two words are anagrams if character count arrays are identical. Increment for string 1 and decrement for string 2; all entries must equal 0.",
+    complexity: "Time: O(N) | Space: O(1) (fixed 26-element array)",
+    pitfalls: "Not checking string lengths up front; ignoring uppercase or special characters when character set is not restricted.",
+    problems: [{ id: "LC 242", name: "Valid Anagram", diff: "Easy" }, { id: "LC 438", name: "Find All Anagrams in a String", diff: "Medium" }, { id: "LC 567", name: "Permutation in String", diff: "Medium" }],
+    code: `function isAnagram(s, t) {\n  if (s.length !== t.length) return false;\n  const count = new Array(26).fill(0);\n  const code = c => c.charCodeAt(0) - 97;\n  for (let i = 0; i < s.length; i++) {\n    count[code(s[i])]++;\n    count[code(t[i])]--;\n  }\n  return count.every(c => c === 0);\n}`
+  },
+  "string_palindrome": {
+    name: "Palindrome", category: "STRING", difficulty: 3,
+    summary: "Expanding around potential centers to find, count, and extract palindromic substrings symmetrically.",
+    clues: ["Longest palindromic substring", "Count total palindromic substrings", "Symmetry around center point"],
+    intuition: "Every palindrome expands around its center. There are 2N - 1 centers (N single characters and N - 1 adjacent character pairs).",
+    complexity: "Time: O(N²) expand around center (O(N) with Manacher's) | Space: O(1)",
+    pitfalls: "Only expanding around single character centers and forgetting adjacent pairs (even-length palindromes like 'abba').",
+    problems: [{ id: "LC 5", name: "Longest Palindromic Substring", diff: "Medium" }, { id: "LC 647", name: "Palindromic Substrings", diff: "Medium" }, { id: "LC 9", name: "Palindrome Number", diff: "Easy" }],
+    code: `function longestPalindrome(s) {\n  let start = 0, maxLen = 0;\n  function expand(l, r) {\n    while (l >= 0 && r < s.length && s[l] === s[r]) { l--; r++; }\n    const len = r - l - 1;\n    if (len > maxLen) { maxLen = len; start = l + 1; }\n  }\n  for (let i = 0; i < s.length; i++) {\n    expand(i, i);\n    expand(i, i + 1);\n  }\n  return s.substring(start, start + maxLen);\n}`
+  },
+
+  // Category 3: HASHING
+  "hashing_hash-map": {
+    name: "Hash Map", category: "HASHING", difficulty: 5,
+    summary: "Key-value mapping providing average O(1) lookups, insertions, and deletions.",
+    clues: ["Instant O(1) lookup of seen elements", "Tracking indices and complements", "Building LRU Cache with doubly linked list"],
+    intuition: "Hash keys to buckets for constant-time access. Store states and indices on the fly during a single traversal.",
+    complexity: "Time: O(1) average (O(N) worst case) | Space: O(N)",
+    pitfalls: "Hash collisions causing performance degradation; using mutable objects as map keys.",
+    problems: [{ id: "LC 1", name: "Two Sum", diff: "Easy" }, { id: "LC 146", name: "LRU Cache", diff: "Medium" }, { id: "LC 380", name: "Insert Delete GetRandom O(1)", diff: "Medium" }],
+    code: `const map = new Map();\nmap.set(key, value);\nif (map.has(key)) {\n  const val = map.get(key);\n}`
+  },
+  "hashing_frequency-map": {
+    name: "Frequency Map", category: "HASHING", difficulty: 4,
+    summary: "Counting occurrences of distinct items to solve majority element and top-K frequent elements.",
+    clues: ["Top K frequent elements in array", "Element appearing more than N/2 times", "Sorting items by frequency"],
+    intuition: "Tally counts in a hash map. Pair with bucket sort or min-heap to retrieve top frequencies efficiently.",
+    complexity: "Time: O(N) build, O(N log K) or O(N) with bucket sort | Space: O(N)",
+    pitfalls: "Modifying map entries while iterating over keys; forgetting to handle default initial count of 0.",
+    problems: [{ id: "LC 347", name: "Top K Frequent Elements", diff: "Medium" }, { id: "LC 451", name: "Sort Characters By Frequency", diff: "Medium" }, { id: "LC 169", name: "Majority Element", diff: "Easy" }],
+    code: `function topKFrequent(nums, k) {\n  const freq = new Map();\n  for (const n of nums) freq.set(n, (freq.get(n) || 0) + 1);\n  const buckets = Array.from({ length: nums.length + 1 }, () => []);\n  for (const [num, count] of freq) buckets[count].push(num);\n  const res = [];\n  for (let i = buckets.length - 1; i >= 0 && res.length < k; i--) {\n    if (buckets[i].length) res.push(...buckets[i]);\n  }\n  return res.slice(0, k);\n}`
+  },
+  "hashing_count-distinct-elements": {
+    name: "Count Distinct Elements", category: "HASHING", difficulty: 3,
+    summary: "Tracking unique elements dynamically using HashSets or sliding frequency maps.",
+    clues: ["Counting unique elements in sliding window of size K", "Subarrays with exactly K distinct numbers", "Checking for duplicates"],
+    intuition: "In a sliding window, increment count for incoming element. When outgoing element count hits 0, delete key so map.size reflects distinct count.",
+    complexity: "Time: O(N) | Space: O(K) where K is distinct count",
+    pitfalls: "Leaving keys with value 0 in the map, which corrupts map.size / Object.keys(map).length.",
+    problems: [{ id: "LC 217", name: "Contains Duplicate", diff: "Easy" }, { id: "LC 992", name: "Subarrays with K Different Integers", diff: "Hard" }, { id: "LC 349", name: "Intersection of Two Arrays", diff: "Easy" }],
+    code: `function countDistinctInWindows(arr, k) {\n  const map = new Map(), res = [];\n  for (let i = 0; i < arr.length; i++) {\n    map.set(arr[i], (map.get(arr[i]) || 0) + 1);\n    if (i >= k) {\n      const out = arr[i - k];\n      if (map.get(out) === 1) map.delete(out);\n      else map.set(out, map.get(out) - 1);\n    }\n    if (i >= k - 1) res.push(map.size);\n  }\n  return res;\n}`
+  },
+  "hashing_group-anagrams": {
+    name: "Group Anagrams", category: "HASHING", difficulty: 3,
+    summary: "Normalizing words into canonical representation keys to group matching anagrams together.",
+    clues: ["Group list of strings into sets of anagrams", "Words with identical character composition but different orders"],
+    intuition: "Generate a canonical signature for each word (sort characters 'eat' -> 'aet' or use 26-char frequency tuple) and map signature to word list.",
+    complexity: "Time: O(N * K log K) with sorting or O(N * K) with signature | Space: O(N * K)",
+    pitfalls: "Using array references as map keys directly in languages without deep array hashing (convert to string first).",
+    problems: [{ id: "LC 49", name: "Group Anagrams", diff: "Medium" }, { id: "LC 249", name: "Group Shifted Strings", diff: "Medium" }],
+    code: `function groupAnagrams(strs) {\n  const map = new Map();\n  for (const s of strs) {\n    const key = s.split('').sort().join('');\n    if (!map.has(key)) map.set(key, []);\n    map.get(key).push(s);\n  }\n  return Array.from(map.values());\n}`
+  },
+  "hashing_two-sum": {
+    name: "Two Sum", category: "HASHING", difficulty: 4,
+    summary: "Single-pass complement lookup using a Hash Map to find pairs summing to a target value.",
+    clues: ["Unsorted array where two numbers sum to target", "Complement matching target - x", "Avoiding nested O(N²) loop"],
+    intuition: "For each element nums[i], check if target - nums[i] was already saved in the map. If yes, return indices; otherwise save nums[i] -> i.",
+    complexity: "Time: O(N) | Space: O(N)",
+    pitfalls: "Using the same element twice (e.g. target - x == x at the identical index); doing two passes when one suffices.",
+    problems: [{ id: "LC 1", name: "Two Sum", diff: "Easy" }, { id: "LC 167", name: "Two Sum II - Input Array Is Sorted", diff: "Medium" }, { id: "LC 653", name: "Two Sum IV - Input is a BST", diff: "Easy" }],
+    code: `function twoSum(nums, target) {\n  const seen = new Map();\n  for (let i = 0; i < nums.length; i++) {\n    const comp = target - nums[i];\n    if (seen.has(comp)) return [seen.get(comp), i];\n    seen.set(nums[i], i);\n  }\n  return [];\n}`
+  },
+
+  // Category 4: STACK
+  "stack_monotonic-stack": {
+    name: "Monotonic Stack", category: "STACK", difficulty: 4,
+    summary: "Stack maintaining strictly ordered elements to resolve nearest greater/smaller queries in O(1) amortized time.",
+    clues: ["Next Greater Element or Next Smaller Element", "Largest Rectangle in Histogram", "Trapping Rain Water"],
+    intuition: "Maintain elements/indices in monotonic order. When incoming element violates order, pop elements—the incoming element is their nearest greater/smaller neighbor!",
+    complexity: "Time: O(N) (each item pushed/popped at most once) | Space: O(N)",
+    pitfalls: "Pushing values instead of indices when distances/widths are required; confusion between strictly greater (>) vs non-decreasing (>=).",
+    problems: [{ id: "LC 739", name: "Daily Temperatures", diff: "Medium" }, { id: "LC 84", name: "Largest Rectangle in Histogram", diff: "Hard" }, { id: "LC 42", name: "Trapping Rain Water", diff: "Hard" }],
+    code: `function dailyTemperatures(temps) {\n  const n = temps.length, res = new Array(n).fill(0), stack = [];\n  for (let i = 0; i < n; i++) {\n    while (stack.length && temps[i] > temps[stack[stack.length - 1]]) {\n      const prev = stack.pop();\n      res[prev] = i - prev;\n    }\n    stack.push(i);\n  }\n  return res;\n}`
+  },
+  "stack_balanced-parentheses": {
+    name: "Balanced Parentheses", category: "STACK", difficulty: 3,
+    summary: "LIFO matching of nested bracket pairs and delimiters.",
+    clues: ["Input contains characters '()', '{}', '[]'", "Validating matching tags or expressions", "Minimum removals to make valid parentheses"],
+    intuition: "Push opening brackets onto stack. For closing brackets, verify stack is non-empty and top element matches; pop it. At end, stack must be empty.",
+    complexity: "Time: O(N) | Space: O(N)",
+    pitfalls: "Popping from empty stack (causes undefined/runtime error); not checking if stack is empty at string end (e.g. '(((').",
+    problems: [{ id: "LC 20", name: "Valid Parentheses", diff: "Easy" }, { id: "LC 32", name: "Longest Valid Parentheses", diff: "Hard" }, { id: "LC 1249", name: "Minimum Remove to Make Valid Parentheses", diff: "Medium" }],
+    code: `function isValid(s) {\n  const stack = [], map = { ')': '(', '}': '{', ']': '[' };\n  for (const c of s) {\n    if (c in map) {\n      if (stack.pop() !== map[c]) return false;\n    } else {\n      stack.push(c);\n    }\n  }\n  return stack.length === 0;\n}`
+  },
+  "stack_next-greater-smaller": {
+    name: "Next Greater / Smaller", category: "STACK", difficulty: 4,
+    summary: "Finding nearest greater or smaller elements to left or right, including circular arrays.",
+    clues: ["First value strictly greater to the right for each element", "Circular array variant wrapping around to index 0", "Stock span problem"],
+    intuition: "Loop through array (or double length 2N with modulo for circular arrays). Maintain stack of indices. Pop when current element exceeds stack top.",
+    complexity: "Time: O(N) | Space: O(N)",
+    pitfalls: "Forgetting to initialize default answers with -1; failing to handle circular array wrap-around.",
+    problems: [{ id: "LC 496", name: "Next Greater Element I", diff: "Easy" }, { id: "LC 503", name: "Next Greater Element II (Circular)", diff: "Medium" }, { id: "LC 901", name: "Online Stock Span", diff: "Medium" }],
+    code: `function nextGreaterElements(nums) {\n  const n = nums.length, res = new Array(n).fill(-1), stack = [];\n  for (let i = 0; i < 2 * n; i++) {\n    const val = nums[i % n];\n    while (stack.length && nums[stack[stack.length - 1]] < val) {\n      res[stack.pop()] = val;\n    }\n    if (i < n) stack.push(i);\n  }\n  return res;\n}`
+  },
+  "stack_min-stack": {
+    name: "Min Stack", category: "STACK", difficulty: 2,
+    summary: "Designing a stack supporting push, pop, top, and retrieving minimum element in O(1) time.",
+    clues: ["Stack data structure with constant-time getMin()", "Tracking historical extremes across LIFO operations"],
+    intuition: "Store pairs [value, currentMin] inside stack. When pushing, new min = min(val, currentMin).",
+    complexity: "Time: O(1) for all operations | Space: O(N)",
+    pitfalls: "Only storing a single min variable that is lost when the minimum element is popped.",
+    problems: [{ id: "LC 155", name: "Min Stack", diff: "Medium" }, { id: "LC 716", name: "Max Stack", diff: "Hard" }],
+    code: `class MinStack {\n  constructor() { this.stack = []; }\n  push(val) {\n    const min = this.stack.length ? Math.min(val, this.getMin()) : val;\n    this.stack.push({ val, min });\n  }\n  pop() { this.stack.pop(); }\n  top() { return this.stack[this.stack.length - 1].val; }\n  getMin() { return this.stack[this.stack.length - 1].min; }\n}`
+  },
+
+  // Category 5: QUEUE / DEQUE
+  "queue-deque_sliding-window-maximum": {
+    name: "Sliding Window Maximum", category: "QUEUE / DEQUE", difficulty: 4,
+    summary: "Using a monotonic double-ended queue to find the rolling maximum of every sliding window in O(N) total time.",
+    clues: ["Maximum in every contiguous window of size K", "Rolling maximum/minimum in stream or array"],
+    intuition: "Store indices in deque in decreasing order of values: 1) evict front indices older than i - k + 1; 2) pop back indices whose values are <= current value; 3) push current index. Deque front is always window max.",
+    complexity: "Time: O(N) | Space: O(K)",
+    pitfalls: "Storing values instead of indices in deque (prevents checking if front element is out-of-window); off-by-one window start condition.",
+    problems: [{ id: "LC 239", name: "Sliding Window Maximum", diff: "Hard" }, { id: "LC 862", name: "Shortest Subarray with Sum at Least K", diff: "Hard" }],
+    code: `function maxSlidingWindow(nums, k) {\n  const deque = [], res = [];\n  for (let i = 0; i < nums.length; i++) {\n    if (deque.length && deque[0] < i - k + 1) deque.shift();\n    while (deque.length && nums[deque[deque.length - 1]] <= nums[i]) deque.pop();\n    deque.push(i);\n    if (i >= k - 1) res.push(nums[deque[0]]);\n  }\n  return res;\n}`
+  },
+  "queue-deque_first-negative-in-window": {
+    name: "First Negative in Window", category: "QUEUE / DEQUE", difficulty: 3,
+    summary: "Queue-based tracking of negative numbers appearing inside a sliding window.",
+    clues: ["First negative integer in every contiguous subarray of size K", "Return 0 if window has no negative integers"],
+    intuition: "Maintain queue of negative integer indices. As window slides, pop indices from front that fell outside. Front of queue is first negative in current window.",
+    complexity: "Time: O(N) | Space: O(K)",
+    pitfalls: "Not removing out-of-bounds negative indices; forgetting to output 0 when queue is empty.",
+    problems: [{ id: "GFG", name: "First Negative in Every Window of Size K", diff: "Easy" }],
+    code: `function firstNegative(arr, k) {\n  const q = [], res = [];\n  for (let i = 0; i < arr.length; i++) {\n    if (arr[i] < 0) q.push(i);\n    if (q.length && q[0] <= i - k) q.shift();\n    if (i >= k - 1) res.push(q.length ? arr[q[0]] : 0);\n  }\n  return res;\n}`
+  },
+  "queue-deque_deque-optimization": {
+    name: "Deque Optimization", category: "QUEUE / DEQUE", difficulty: 3,
+    summary: "Optimizing 1D DP transitions or shortest paths on 0-1 weighted graphs using Deque.",
+    clues: ["Jump Game VI: maximum score jumping at most K steps", "0-1 BFS: graph where edge weights are only 0 or 1", "DP transition dp[i] = max(dp[j]) + cost[i] for j in [i-k, i-1]"],
+    intuition: "Maintain previous DP states in a monotonic deque to find max in O(1). In 0-1 BFS, push 0-cost moves to front and 1-cost to back.",
+    complexity: "Time: O(N) or O(V + E) | Space: O(K) or O(V)",
+    pitfalls: "Pushing weight-1 edges to front in 0-1 BFS; forgetting to evict expired indices in DP.",
+    problems: [{ id: "LC 1696", name: "Jump Game VI", diff: "Medium" }, { id: "LC 1425", name: "Constrained Subsequence Sum", diff: "Hard" }, { id: "LC 1368", name: "Minimum Cost to Make at Least One Valid Path", diff: "Hard" }],
+    code: `function maxResult(nums, k) {\n  const n = nums.length, dp = new Array(n).fill(0);\n  dp[0] = nums[0];\n  const deque = [0];\n  for (let i = 1; i < n; i++) {\n    if (deque[0] < i - k) deque.shift();\n    dp[i] = nums[i] + dp[deque[0]];\n    while (deque.length && dp[deque[deque.length - 1]] <= dp[i]) deque.pop();\n    deque.push(i);\n  }\n  return dp[n - 1];\n}`
+  },
+  "queue-deque_design-queue": {
+    name: "Design Queue", category: "QUEUE / DEQUE", difficulty: 2,
+    summary: "Implementing FIFO queue behaviors using stacks or circular arrays.",
+    clues: ["Implement Queue using two Stacks", "Design circular queue buffer with fixed capacity"],
+    intuition: "Two stacks: inStack and outStack. Push into inStack. When pop/peek called: if outStack is empty, transfer all items from inStack to reverse their order.",
+    complexity: "Time: O(1) amortized | Space: O(N)",
+    pitfalls: "Transferring items to outStack while outStack still has existing items; wrap-around modulo mistakes in circular queue.",
+    problems: [{ id: "LC 232", name: "Implement Queue using Stacks", diff: "Easy" }, { id: "LC 622", name: "Design Circular Queue", diff: "Medium" }],
+    code: `class MyQueue {\n  constructor() { this.in = []; this.out = []; }\n  push(x) { this.in.push(x); }\n  pop() { this.peek(); return this.out.pop(); }\n  peek() {\n    if (!this.out.length) {\n      while (this.in.length) this.out.push(this.in.pop());\n    }\n    return this.out[this.out.length - 1];\n  }\n  empty() { return !this.in.length && !this.out.length; }\n}`
+  },
+
+  // Category 6: LINKED LIST
+  "linked-list_fast-slow": {
+    name: "Fast-Slow Pointers", category: "LINKED LIST", difficulty: 2,
+    summary: "Two pointers advancing at different speeds (1x and 2x) to find midpoints and kth nodes.",
+    clues: ["Middle node of singly linked list in one pass", "Determine if number is happy (repeating cycle)", "Check if linked list is a palindrome"],
+    intuition: "Slow pointer takes 1 step while fast pointer takes 2 steps. When fast reaches the end, slow is at the exact midpoint.",
+    complexity: "Time: O(N) | Space: O(1) in-place",
+    pitfalls: "Null pointer exception: checking fast.next.next without first verifying fast !== null && fast.next !== null.",
+    problems: [{ id: "LC 876", name: "Middle of the Linked List", diff: "Easy" }, { id: "LC 19", name: "Remove Nth Node From End of List", diff: "Medium" }, { id: "LC 234", name: "Palindrome Linked List", diff: "Easy" }],
+    code: `function middleNode(head) {\n  let slow = head, fast = head;\n  while (fast && fast.next) {\n    slow = slow.next;\n    fast = fast.next.next;\n  }\n  return slow;\n}`
+  },
+  "linked-list_cycle-detection": {
+    name: "Cycle Detection", category: "LINKED LIST", difficulty: 2,
+    summary: "Floyd's Tortoise and Hare algorithm detects loops and locates the cycle start node in constant space.",
+    clues: ["Detect if linked list contains a cycle", "Find entry node where cycle begins", "Find duplicate number in array without modifying array"],
+    intuition: "Move slow 1 step, fast 2 steps. If they meet, cycle exists. Reset slow to head while keeping fast at meeting node; advance both 1 step at a time—their meeting point is the cycle entrance!",
+    complexity: "Time: O(N) | Space: O(1)",
+    pitfalls: "Failing to check for empty list or single-node acyclic list where fast.next is null.",
+    problems: [{ id: "LC 141", name: "Linked List Cycle", diff: "Easy" }, { id: "LC 142", name: "Linked List Cycle II", diff: "Medium" }, { id: "LC 287", name: "Find the Duplicate Number", diff: "Medium" }],
+    code: `function detectCycle(head) {\n  let slow = head, fast = head;\n  while (fast && fast.next) {\n    slow = slow.next;\n    fast = fast.next.next;\n    if (slow === fast) {\n      let p1 = head, p2 = slow;\n      while (p1 !== p2) { p1 = p1.next; p2 = p2.next; }\n      return p1;\n    }\n  }\n  return null;\n}`
+  },
+  "linked-list_reversal": {
+    name: "Reversal", category: "LINKED LIST", difficulty: 3,
+    summary: "Iterative in-place pointer redirection to reverse entire linked lists or sublists in K-groups.",
+    clues: ["Reverse singly linked list", "Reverse nodes in k-group", "Reverse sublist between positions left and right"],
+    intuition: "Maintain three pointers: prev, curr, next. In loop: save curr.next into next, point curr.next to prev, move prev = curr, curr = next.",
+    complexity: "Time: O(N) | Space: O(1) in-place",
+    pitfalls: "Losing pointer to curr.next before updating link; forgetting to reconnect reversed sublist ends.",
+    problems: [{ id: "LC 206", name: "Reverse Linked List", diff: "Easy" }, { id: "LC 92", name: "Reverse Linked List II", diff: "Medium" }, { id: "LC 25", name: "Reverse Nodes in k-Group", diff: "Hard" }],
+    code: `function reverseList(head) {\n  let prev = null, curr = head;\n  while (curr) {\n    const next = curr.next;\n    curr.next = prev;\n    prev = curr;\n    curr = next;\n  }\n  return prev;\n}`
+  },
+  "linked-list_merge-lists": {
+    name: "Merge Lists", category: "LINKED LIST", difficulty: 3,
+    summary: "Combining sorted linked lists using dummy head pointer or divide-and-conquer / min-heap.",
+    clues: ["Merge two sorted linked lists", "Merge K sorted linked lists", "Linked list merge sort"],
+    intuition: "Create dummy head node. While both lists have nodes, attach smaller node to tail and advance that list. Attach remaining non-empty list at end.",
+    complexity: "Time: O(N + M) for 2 lists, O(N log K) for K lists | Space: O(1) auxiliary",
+    pitfalls: "Not using a dummy node (leads to messy null checks on head); forgetting remaining nodes when one list runs out.",
+    problems: [{ id: "LC 21", name: "Merge Two Sorted Lists", diff: "Easy" }, { id: "LC 23", name: "Merge k Sorted Lists", diff: "Hard" }, { id: "LC 148", name: "Sort List", diff: "Medium" }],
+    code: `function mergeTwoLists(l1, l2) {\n  const dummy = { next: null };\n  let tail = dummy;\n  while (l1 && l2) {\n    if (l1.val <= l2.val) { tail.next = l1; l1 = l1.next; }\n    else { tail.next = l2; l2 = l2.next; }\n    tail = tail.next;\n  }\n  tail.next = l1 || l2;\n  return dummy.next;\n}`
+  },
+
+  // Category 7: TREES
+  "trees_binary-tree-traversal": {
+    name: "Binary Tree Traversal", category: "TREES", difficulty: 4,
+    summary: "Systematically visiting all nodes via DFS (preorder, inorder, postorder) or BFS (level order).",
+    clues: ["Level-by-level processing (BFS queue)", "Serialize and deserialize binary tree", "Bottom-up aggregation (postorder)"],
+    intuition: "DFS explores branches to leaves using recursion or stack. BFS explores depth by depth using a queue with level-size looping.",
+    complexity: "Time: O(N) | Space: O(H) for DFS, O(W) for BFS",
+    pitfalls: "Not snapshotting queue.length before loop in level-order BFS (inner loop enqueues children, corrupting size).",
+    problems: [{ id: "LC 94", name: "Binary Tree Inorder Traversal", diff: "Easy" }, { id: "LC 102", name: "Binary Tree Level Order Traversal", diff: "Medium" }, { id: "LC 103", name: "Binary Tree Zigzag Level Order Traversal", diff: "Medium" }],
+    code: `function levelOrder(root) {\n  if (!root) return [];\n  const res = [], q = [root];\n  while (q.length) {\n    const size = q.length, level = [];\n    for (let i = 0; i < size; i++) {\n      const node = q.shift();\n      level.push(node.val);\n      if (node.left) q.push(node.left);\n      if (node.right) q.push(node.right);\n    }\n    res.push(level);\n  }\n  return res;\n}`
+  },
+  "trees_binary-search-tree": {
+    name: "Binary Search Tree", category: "TREES", difficulty: 4,
+    summary: "Leveraging the BST property (left < root < right) to search, validate, and retrieve ordered sequences.",
+    clues: ["Validate if binary tree is valid BST", "Find Kth smallest element in BST", "Inorder traversal yields sorted values"],
+    intuition: "Inorder traversal of BST visits nodes in strictly ascending order. When validating, pass down range constraints (minBound < node.val < maxBound).",
+    complexity: "Time: O(H) search, O(N) validation | Space: O(H)",
+    pitfalls: "Only comparing node with its immediate children rather than checking ancestor bounds.",
+    problems: [{ id: "LC 98", name: "Validate Binary Search Tree", diff: "Medium" }, { id: "LC 230", name: "Kth Smallest Element in a BST", diff: "Medium" }, { id: "LC 700", name: "Search in a Binary Search Tree", diff: "Easy" }],
+    code: `function isValidBST(root, min = -Infinity, max = Infinity) {\n  if (!root) return true;\n  if (root.val <= min || root.val >= max) return false;\n  return isValidBST(root.left, min, root.val) && isValidBST(root.right, root.val, max);\n}`
+  },
+  "trees_lowest-common-ancestor": {
+    name: "Lowest Common Ancestor", category: "TREES", difficulty: 3,
+    summary: "Finding deepest shared ancestor node that has both target nodes p and q as descendants.",
+    clues: ["Find Lowest Common Ancestor (LCA) in BST or binary tree", "Distance between two nodes in tree"],
+    intuition: "In general binary tree: recurse left and right. If both return non-null, current node is LCA! In BST: if both p, q < root, go left; if both > root, go right; else root is LCA.",
+    complexity: "Time: O(N) (O(H) in BST) | Space: O(H)",
+    pitfalls: "Assuming nodes are guaranteed to exist without confirming problem constraints.",
+    problems: [{ id: "LC 236", name: "Lowest Common Ancestor of a Binary Tree", diff: "Medium" }, { id: "LC 235", name: "Lowest Common Ancestor of a BST", diff: "Medium" }],
+    code: `function lowestCommonAncestor(root, p, q) {\n  if (!root || root === p || root === q) return root;\n  const left = lowestCommonAncestor(root.left, p, q);\n  const right = lowestCommonAncestor(root.right, p, q);\n  if (left && right) return root;\n  return left || right;\n}`
+  },
+  "trees_tree-construction": {
+    name: "Tree Construction", category: "TREES", difficulty: 3,
+    summary: "Reconstructing binary trees uniquely from preorder + inorder or postorder + inorder traversals.",
+    clues: ["Construct tree from preorder and inorder traversal arrays", "Construct tree from inorder and postorder traversal"],
+    intuition: "First element of preorder is the root. Find this root in inorder array to divide into left and right subtree lengths. Use a hash map for O(1) inorder index lookups.",
+    complexity: "Time: O(N) with hash map | Space: O(N)",
+    pitfalls: "Scanning inorder array linearly in O(N) inside recursion causing O(N²) total time.",
+    problems: [{ id: "LC 105", name: "Construct Binary Tree from Preorder & Inorder", diff: "Medium" }, { id: "LC 106", name: "Construct Binary Tree from Inorder & Postorder", diff: "Medium" }],
+    code: `function buildTree(preorder, inorder) {\n  const map = new Map();\n  inorder.forEach((v, i) => map.set(v, i));\n  let preIdx = 0;\n  function helper(left, right) {\n    if (left > right) return null;\n    const val = preorder[preIdx++];\n    const root = { val, left: null, right: null };\n    const mid = map.get(val);\n    root.left = helper(left, mid - 1);\n    root.right = helper(mid + 1, right);\n    return root;\n  }\n  return helper(0, inorder.length - 1);\n}`
+  },
+
+  // Category 8: RECURSION
+  "recursion_backtracking": {
+    name: "Backtracking", category: "RECURSION", difficulty: 5,
+    summary: "Systematically generating solutions by making a choice, recursing, and reverting state (backtracking) to explore alternatives.",
+    clues: ["Generate all permutations, combinations, or subsets", "Constraint satisfaction: N-Queens, Sudoku solver, Word Search"],
+    intuition: "Choose an option -> Recurse down the decision tree -> Unchoose (pop from path / restore state). Prune invalid branches early.",
+    complexity: "Time: O(2^N) for subsets, O(N!) for permutations | Space: O(N) call stack",
+    pitfalls: "Mutating shared path array without pushing a clone/shallow copy to the final result list.",
+    problems: [{ id: "LC 46", name: "Permutations", diff: "Medium" }, { id: "LC 78", name: "Subsets", diff: "Medium" }, { id: "LC 39", name: "Combination Sum", diff: "Medium" }, { id: "LC 51", name: "N-Queens", diff: "Hard" }],
+    code: `function subsets(nums) {\n  const res = [];\n  function backtrack(start, path) {\n    res.push([...path]);\n    for (let i = start; i < nums.length; i++) {\n      path.push(nums[i]);\n      backtrack(i + 1, path);\n      path.pop();\n    }\n  }\n  backtrack(0, []);\n  return res;\n}`
+  },
+  "recursion_divide-conquer": {
+    name: "Divide & Conquer", category: "RECURSION", difficulty: 4,
+    summary: "Splitting a problem into non-overlapping subproblems, solving each recursively, and combining results.",
+    clues: ["Merge Sort, Quick Sort, Fast Power computation", "Divide matrix into 4 quadrants (Search 2D Matrix II)"],
+    intuition: "Divide problem into equal halves, solve subproblems recursively, and merge solutions in linear time. By Master Theorem: T(N) = 2T(N/2) + O(N) = O(N log N).",
+    complexity: "Time: O(N log N) | Space: O(log N) to O(N)",
+    pitfalls: "Missing base cases (N <= 1); inefficient merge step that exceeds linear time.",
+    problems: [{ id: "LC 912", name: "Sort an Array (Merge Sort)", diff: "Medium" }, { id: "LC 50", name: "Pow(x, n)", diff: "Medium" }, { id: "LC 240", name: "Search a 2D Matrix II", diff: "Medium" }],
+    code: `function myPow(x, n) {\n  if (n === 0) return 1;\n  if (n < 0) { x = 1 / x; n = -n; }\n  const half = myPow(x, Math.floor(n / 2));\n  return n % 2 === 0 ? half * half : half * half * x;\n}`
+  },
+  "recursion_tree-graph-recursion": {
+    name: "Tree / Graph Recursion", category: "RECURSION", difficulty: 3,
+    summary: "Bottom-up and top-down recursive traversal computing subtree metrics and path aggregates.",
+    clues: ["Maximum depth of binary tree, diameter of tree", "Binary Tree Maximum Path Sum", "Connected components in recursive DFS"],
+    intuition: "Define what the recursive function returns for each subtree. At current node, combine child results and update global tracking variables.",
+    complexity: "Time: O(N) | Space: O(H)",
+    pitfalls: "Forgetting to return base case values; re-visiting nodes without a visited set in cyclic graphs.",
+    problems: [{ id: "LC 104", name: "Maximum Depth of Binary Tree", diff: "Easy" }, { id: "LC 543", name: "Diameter of Binary Tree", diff: "Easy" }, { id: "LC 124", name: "Binary Tree Maximum Path Sum", diff: "Hard" }],
+    code: `function diameterOfBinaryTree(root) {\n  let diameter = 0;\n  function depth(node) {\n    if (!node) return 0;\n    const l = depth(node.left), r = depth(node.right);\n    diameter = Math.max(diameter, l + r);\n    return 1 + Math.max(l, r);\n  }\n  depth(root);\n  return diameter;\n}`
+  },
+  "recursion_memoization": {
+    name: "Memoization", category: "RECURSION", difficulty: 3,
+    summary: "Top-down DP caching results of expensive recursive calls using a lookup table to avoid redundant computations.",
+    clues: ["Recursive problem with overlapping subproblems", "Exponential recursion tree collapsing to polynomial states (Coin Change, Fibonacci)"],
+    intuition: "Before computing answer for state, check if memo[state] exists. If yes, return cached answer. Otherwise compute, store in memo, and return.",
+    complexity: "Time: O(unique states * transitions) | Space: O(states) + recursion depth",
+    pitfalls: "Not caching results for states returning 0 or falsy values; stack overflow on deep recursion depths.",
+    problems: [{ id: "LC 70", name: "Climbing Stairs", diff: "Easy" }, { id: "LC 322", name: "Coin Change", diff: "Medium" }, { id: "LC 139", name: "Word Break", diff: "Medium" }],
+    code: `function coinChange(coins, amount) {\n  const memo = new Map();\n  function dfs(rem) {\n    if (rem === 0) return 0;\n    if (rem < 0) return -1;\n    if (memo.has(rem)) return memo.get(rem);\n    let min = Infinity;\n    for (const c of coins) {\n      const res = dfs(rem - c);\n      if (res >= 0) min = Math.min(min, res + 1);\n    }\n    const ans = min === Infinity ? -1 : min;\n    memo.set(rem, ans);\n    return ans;\n  }\n  return dfs(amount);\n}`
+  },
+
+  // Category 9: HEAP
+  "heap_priority-queue": {
+    name: "Priority Queue", category: "HEAP", difficulty: 3,
+    summary: "Complete binary tree data structure ensuring the maximum or minimum element is always accessible in O(1).",
+    clues: ["Repeatedly extract min or max element dynamically", "Merge K sorted lists or streams", "Dijkstra's shortest path algorithm"],
+    intuition: "Heap maintains the heap property: root is always the extreme value. Insertion and extraction take logarithmic time O(log N).",
+    complexity: "Time: O(log N) insert/pop, O(1) peek | Space: O(N)",
+    pitfalls: "Inverting comparator order (min-heap vs max-heap); modifying object fields while stored inside heap without re-heapifying.",
+    problems: [{ id: "LC 23", name: "Merge k Sorted Lists", diff: "Hard" }, { id: "LC 253", name: "Meeting Rooms II", diff: "Medium" }, { id: "LC 621", name: "Task Scheduler", diff: "Medium" }],
+    code: `// Min-Heap Priority Queue\n// push: O(log N) sift-up\n// pop: O(log N) sift-down\n// peek: O(1) top element`
+  },
+  "heap_top-k-elements": {
+    name: "Top K Elements", category: "HEAP", difficulty: 3,
+    summary: "Maintaining a fixed-size Min-Heap of size K to find the K largest elements in O(N log K) time.",
+    clues: ["Find K largest or K smallest elements in an array or data stream", "K closest points to origin", "Kth largest element in array"],
+    intuition: "To find K largest elements, maintain a Min-Heap of size K. Push each item; whenever size exceeds K, pop the smallest. At the end, the heap contains the K largest!",
+    complexity: "Time: O(N log K) | Space: O(K)",
+    pitfalls: "Using a max-heap of size N instead of a min-heap of size K, which uses O(N) memory and slower time.",
+    problems: [{ id: "LC 215", name: "Kth Largest Element in an Array", diff: "Medium" }, { id: "LC 347", name: "Top K Frequent Elements", diff: "Medium" }, { id: "LC 973", name: "K Closest Points to Origin", diff: "Medium" }],
+    code: `// Top K Elements concept: Min-Heap of size K\n// When heap size > K, pop minimum.\n// Final heap holds the K largest elements!`
+  },
+  "heap_heapify-heap-sort": {
+    name: "Heapify / Heap Sort", category: "HEAP", difficulty: 2,
+    summary: "Transforming an array into a heap in linear O(N) time and sorting in-place in O(N log N).",
+    clues: ["Build heap from array in O(N)", "In-place O(1) auxiliary space sorting with O(N log N) worst-case time"],
+    intuition: "Sift down from the last non-leaf parent (n/2 - 1) up to the root. Bottom-up sift down runs in O(N) mathematically. Heap sort repeatedly swaps root with last element and sifts down.",
+    complexity: "Time: O(N) to heapify, O(N log N) to sort | Space: O(1) in-place",
+    pitfalls: "Believing heapify is O(N log N) (repeated inserts takes O(N log N), but bottom-up sift-down is linear O(N)).",
+    problems: [{ id: "LC 912", name: "Sort an Array (Heap Sort)", diff: "Medium" }],
+    code: `function heapSort(arr) {\n  const n = arr.length;\n  function siftDown(len, i) {\n    let largest = i, l = 2 * i + 1, r = 2 * i + 2;\n    if (l < len && arr[l] > arr[largest]) largest = l;\n    if (r < len && arr[r] > arr[largest]) largest = r;\n    if (largest !== i) {\n      [arr[i], arr[largest]] = [arr[largest], arr[i]];\n      siftDown(len, largest);\n    }\n  }\n  for (let i = Math.floor(n / 2) - 1; i >= 0; i--) siftDown(n, i);\n  for (let i = n - 1; i > 0; i--) {\n    [arr[0], arr[i]] = [arr[i], arr[0]];\n    siftDown(i, 0);\n  }\n  return arr;\n}`
+  },
+
+  // Category 10: GRAPHS
+  "graphs_bfs": {
+    name: "BFS", category: "GRAPHS", difficulty: 4,
+    summary: "Breadth-First Search traverses graphs level-by-level to guarantee the shortest path in unweighted graphs.",
+    clues: ["Shortest path or minimum steps in unweighted graph", "Word ladder transformations, shortest bridge, knight moves", "Multi-source BFS (e.g. Rotting Oranges, 01 Matrix)"],
+    intuition: "Use a FIFO queue. Add start node and mark visited immediately. Process layer by layer until destination is reached.",
+    complexity: "Time: O(V + E) | Space: O(V)",
+    pitfalls: "Marking node visited upon dequeue instead of enqueue (leads to duplicate queue entries and memory limits exceeded).",
+    problems: [{ id: "LC 127", name: "Word Ladder", diff: "Hard" }, { id: "LC 994", name: "Rotting Oranges", diff: "Medium" }, { id: "LC 752", name: "Open the Lock", diff: "Medium" }],
+    code: `function shortestPathBFS(start, target, adj) {\n  const q = [[start, 0]], visited = new Set([start]);\n  while (q.length) {\n    const [node, dist] = q.shift();\n    if (node === target) return dist;\n    for (const neighbor of (adj[node] || [])) {\n      if (!visited.has(neighbor)) {\n        visited.add(neighbor);\n        q.push([neighbor, dist + 1]);\n      }\n    }\n  }\n  return -1;\n}`
+  },
+  "graphs_dfs": {
+    name: "DFS", category: "GRAPHS", difficulty: 4,
+    summary: "Depth-First Search explores branches deeply before backtracking; perfect for connectivity and cycles.",
+    clues: ["Count connected components / Number of Islands", "Cycle detection in directed or undirected graphs", "Flood fill, maze solving, topological post-ordering"],
+    intuition: "Visit node, mark visited. Recursively call DFS on all unvisited neighbors. Backtrack when reaching a dead end.",
+    complexity: "Time: O(V + E) | Space: O(V) stack depth",
+    pitfalls: "Forgetting to mark visited in cyclic graphs causing infinite recursion and stack overflow.",
+    problems: [{ id: "LC 200", name: "Number of Islands", diff: "Medium" }, { id: "LC 695", name: "Max Area of Island", diff: "Medium" }, { id: "LC 841", name: "Keys and Rooms", diff: "Medium" }],
+    code: `function numIslands(grid) {\n  let count = 0;\n  function dfs(r, c) {\n    if (r < 0 || r >= grid.length || c < 0 || c >= grid[0].length || grid[r][c] !== '1') return;\n    grid[r][c] = '0';\n    dfs(r + 1, c); dfs(r - 1, c); dfs(r, c + 1); dfs(r, c - 1);\n  }\n  for (let r = 0; r < grid.length; r++) {\n    for (let c = 0; c < grid[0].length; c++) {\n      if (grid[r][c] === '1') { count++; dfs(r, c); }\n    }\n  }\n  return count;\n}`
+  },
+  "graphs_shortest-path-dijkstra": {
+    name: "Shortest Path (Dijkstra)", category: "GRAPHS", difficulty: 4,
+    summary: "Greedy algorithm finding single-source shortest paths in graphs with non-negative edge weights using a Min-Heap.",
+    clues: ["Shortest path in weighted graph with non-negative edge costs", "Network delay time, cheapest routes with cost", "Dijkstra vs Bellman-Ford distinction"],
+    intuition: "Maintain distance array dist[v]. Use a Min-Heap storing (distance, node). Pop smallest distance node, relax all incident edges: if dist[u] + weight < dist[v], update and push.",
+    complexity: "Time: O((V + E) log V) with Min-Heap | Space: O(V)",
+    pitfalls: "Applying Dijkstra when negative edge weights exist (must use Bellman-Ford); not ignoring stale pairs popped from heap (dist > distTo[node]).",
+    problems: [{ id: "LC 743", name: "Network Delay Time", diff: "Medium" }, { id: "LC 787", name: "Cheapest Flights Within K Stops", diff: "Medium" }, { id: "LC 1514", name: "Path with Maximum Probability", diff: "Medium" }],
+    code: `// Dijkstra Shortest Path\n// 1. dist array initialized to Infinity, dist[src] = 0\n// 2. MinHeap stores [currentDistance, vertex]\n// 3. Relax edges: if (d + weight < dist[neighbor]) update dist and push`
+  },
+  "graphs_topological-sort": {
+    name: "Topological Sort", category: "GRAPHS", difficulty: 3,
+    summary: "Linear ordering of vertices in Directed Acyclic Graphs (DAG) respecting dependency prerequisites.",
+    clues: ["Course schedule prerequisites", "Build system package compilation order", "Alien dictionary character order"],
+    intuition: "Kahn's Algorithm: Compute in-degree for all vertices. Push 0 in-degree nodes into BFS queue. As each node is dequeued, decrement neighbors' in-degrees; if a neighbor reaches 0, enqueue it.",
+    complexity: "Time: O(V + E) | Space: O(V)",
+    pitfalls: "If processed node count < total vertices, the graph contains a cycle! Check for this condition.",
+    problems: [{ id: "LC 207", name: "Course Schedule", diff: "Medium" }, { id: "LC 210", name: "Course Schedule II", diff: "Medium" }, { id: "LC 269", name: "Alien Dictionary", diff: "Hard" }],
+    code: `function canFinish(numCourses, prerequisites) {\n  const inDegree = new Array(numCourses).fill(0);\n  const adj = Array.from({ length: numCourses }, () => []);\n  for (const [c, pre] of prerequisites) {\n    adj[pre].push(c);\n    inDegree[c]++;\n  }\n  const q = [];\n  for (let i = 0; i < numCourses; i++) if (inDegree[i] === 0) q.push(i);\n  let count = 0;\n  while (q.length) {\n    const node = q.shift();\n    count++;\n    for (const next of adj[node]) {\n      if (--inDegree[next] === 0) q.push(next);\n    }\n  }\n  return count === numCourses;\n}`
+  },
+
+  // Category 11: TRIE
+  "trie_insert-search": {
+    name: "Insert / Search", category: "TRIE", difficulty: 3,
+    summary: "Tree structure storing strings character-by-character for fast O(L) insertions and lookups.",
+    clues: ["Prefix matching and autocomplete dictionaries", "Implement Trie (Prefix Tree)", "Wildcard word search"],
+    intuition: "Each node contains children references (e.g. 26 characters) and isEnd flag. Insert by walking characters, creating nodes as needed. Search matches character by character.",
+    complexity: "Time: O(L) where L is string length | Space: O(Alphabet * L * N)",
+    pitfalls: "Forgetting to mark isEndOfWord = true at the end of insert; null checks on missing child branches.",
+    problems: [{ id: "LC 208", name: "Implement Trie (Prefix Tree)", diff: "Medium" }, { id: "LC 211", name: "Design Add and Search Words Data Structure", diff: "Medium" }],
+    code: `class TrieNode {\n  constructor() { this.children = {}; this.isEnd = false; }\n}\nclass Trie {\n  constructor() { this.root = new TrieNode(); }\n  insert(word) {\n    let curr = this.root;\n    for (const c of word) {\n      if (!curr.children[c]) curr.children[c] = new TrieNode();\n      curr = curr.children[c];\n    }\n    curr.isEnd = true;\n  }\n  search(word) {\n    let curr = this.root;\n    for (const c of word) {\n      if (!curr.children[c]) return false;\n      curr = curr.children[c];\n    }\n    return curr.isEnd;\n  }\n}`
+  },
+  "trie_prefix-problems": {
+    name: "Prefix Problems", category: "TRIE", difficulty: 3,
+    summary: "Using Trie branches to solve longest common prefix, word suggestions, and maximum XOR pairs.",
+    clues: ["Longest Common Prefix among array of words", "Search Suggestions System", "Maximum XOR of Two Numbers in an Array (Binary Trie)"],
+    intuition: "In a binary Trie (bits 31 down to 0), for maximum XOR greedily traverse the opposite bit branch if it exists (1 ^ 0 = 1). For prefix suggestions, follow prefix to node and run DFS to collect top words.",
+    complexity: "Time: O(L) per query | Space: O(Total characters)",
+    pitfalls: "Handling edge cases with empty strings or non-matching prefixes gracefully.",
+    problems: [{ id: "LC 14", name: "Longest Common Prefix", diff: "Easy" }, { id: "LC 1268", name: "Search Suggestions System", diff: "Medium" }, { id: "LC 421", name: "Maximum XOR of Two Numbers in an Array", diff: "Medium" }],
+    code: `startsWith(prefix) {\n  let curr = this.root;\n  for (const c of prefix) {\n    if (!curr.children[c]) return false;\n    curr = curr.children[c];\n  }\n  return true;\n}`
+  },
+  "trie_word-break": {
+    name: "Word Break", category: "TRIE", difficulty: 3,
+    summary: "Combining Trie prefix queries with Dynamic Programming to segment strings into dictionary words.",
+    clues: ["Determine if string can be segmented into dictionary words", "Concatenated Words"],
+    intuition: "dp[i] is true if s[0...i] can be segmented. At each index i where dp[i] is true, search forward in Trie for valid matching words ending at j and set dp[j] = true.",
+    complexity: "Time: O(N²) where N is string length | Space: O(Dict size + N)",
+    pitfalls: "Pure recursion without DP memoization leads to exponential O(2^N) time limit exceeded.",
+    problems: [{ id: "LC 139", name: "Word Break", diff: "Medium" }, { id: "LC 140", name: "Word Break II", diff: "Hard" }, { id: "LC 472", name: "Concatenated Words", diff: "Hard" }],
+    code: `function wordBreak(s, wordDict) {\n  const dict = new Set(wordDict), dp = new Array(s.length + 1).fill(false);\n  dp[0] = true;\n  for (let i = 1; i <= s.length; i++) {\n    for (let j = 0; j < i; j++) {\n      if (dp[j] && dict.has(s.substring(j, i))) {\n        dp[i] = true;\n        break;\n      }\n    }\n  }\n  return dp[s.length];\n}`
+  },
+
+  // Category 12: DYNAMIC PROGRAMMING
+  "dynamic-programming_1d-dp": {
+    name: "1D DP", category: "DYNAMIC PROGRAMMING", difficulty: 4,
+    summary: "Linear state transitions where dp[i] depends on a fixed window of preceding states.",
+    clues: ["Number of ways to reach step N (Climbing Stairs)", "Cannot rob adjacent houses (House Robber)", "Longest Increasing Subsequence (LIS)"],
+    intuition: "Identify base cases. Derive recurrence relation dp[i] = f(dp[i-1], dp[i-2], ...). Optimize space to O(1) by only retaining the last few state variables.",
+    complexity: "Time: O(N) (or O(N log N) for LIS with patience sort) | Space: O(1) with rolling variables",
+    pitfalls: "Allocating O(N) array when only previous 2 numbers are required; off-by-one initial base cases.",
+    problems: [{ id: "LC 70", name: "Climbing Stairs", diff: "Easy" }, { id: "LC 198", name: "House Robber", diff: "Medium" }, { id: "LC 300", name: "Longest Increasing Subsequence", diff: "Medium" }],
+    code: `function rob(nums) {\n  let prev1 = 0, prev2 = 0;\n  for (const n of nums) {\n    const temp = Math.max(prev1, prev2 + n);\n    prev2 = prev1;\n    prev1 = temp;\n  }\n  return prev1;\n}`
+  },
+  "dynamic-programming_2d-dp": {
+    name: "2D DP", category: "DYNAMIC PROGRAMMING", difficulty: 4,
+    summary: "Grid paths and two-string comparison problems modeled via a 2D matrix state dp[i][j].",
+    clues: ["Longest Common Subsequence (LCS)", "Edit Distance (Levenshtein distance)", "Unique Paths in a 2D Grid"],
+    intuition: "dp[i][j] represents optimal answer comparing prefix s1[0...i] with s2[0...j], or reaching cell (i, j). If characters match, dp[i][j] = dp[i-1][j-1] + 1; otherwise take best among deletions/insertions.",
+    complexity: "Time: O(M * N) | Space: O(min(M, N)) with rolling row optimization",
+    pitfalls: "Row/column index confusion; failing to correctly initialize the 0th row and column base conditions.",
+    problems: [{ id: "LC 1143", name: "Longest Common Subsequence", diff: "Medium" }, { id: "LC 72", name: "Edit Distance", diff: "Medium" }, { id: "LC 62", name: "Unique Paths", diff: "Medium" }],
+    code: `function longestCommonSubsequence(text1, text2) {\n  const m = text1.length, n = text2.length;\n  const dp = Array.from({ length: m + 1 }, () => new Array(n + 1).fill(0));\n  for (let i = 1; i <= m; i++) {\n    for (let j = 1; j <= n; j++) {\n      if (text1[i - 1] === text2[j - 1]) dp[i][j] = dp[i - 1][j - 1] + 1;\n      else dp[i][j] = Math.max(dp[i - 1][j], dp[i][j - 1]);\n    }\n  }\n  return dp[m][n];\n}`
+  },
+  "dynamic-programming_knapsack-dp": {
+    name: "Knapsack DP", category: "DYNAMIC PROGRAMMING", difficulty: 3,
+    summary: "Bounded capacity decisions: selecting items with weight and value constraints (0/1 vs Unbounded).",
+    clues: ["Partition array into equal sum subsets", "Coin Change (minimum coins / total ways)", "Target Sum (+/- signs)"],
+    intuition: "In 0/1 Knapsack, iterate backward through capacity weights W down to w[i] so each item is used at most once. In Unbounded Knapsack (like Coin Change), iterate forward so items can be reused.",
+    complexity: "Time: O(N * W) pseudo-polynomial | Space: O(W)",
+    pitfalls: "Looping forward instead of backward in 0/1 Knapsack, turning it into unbounded knapsack accidentally.",
+    problems: [{ id: "LC 416", name: "Partition Equal Subset Sum", diff: "Medium" }, { id: "LC 322", name: "Coin Change", diff: "Medium" }, { id: "LC 494", name: "Target Sum", diff: "Medium" }],
+    code: `function canPartition(nums) {\n  const sum = nums.reduce((a, b) => a + b, 0);\n  if (sum % 2 !== 0) return false;\n  const target = sum / 2, dp = new Array(target + 1).fill(false);\n  dp[0] = true;\n  for (const num of nums) {\n    for (let w = target; w >= num; w--) {\n      dp[w] = dp[w] || dp[w - num];\n    }\n  }\n  return dp[target];\n}`
+  },
+  "dynamic-programming_dp-on-trees": {
+    name: "DP on Trees", category: "DYNAMIC PROGRAMMING", difficulty: 3,
+    summary: "Post-order tree traversals aggregating state tuples (e.g. [with_node, without_node]) up from children.",
+    clues: ["House Robber III (cannot rob parent and child)", "Binary Tree Maximum Path Sum", "Minimum vertex cover / camera placement"],
+    intuition: "Traverse post-order. For each node, compute and return a tuple: [max_including_root, max_excluding_root]. Combine left and right subtree tuples in O(1).",
+    complexity: "Time: O(N) | Space: O(H) call stack",
+    pitfalls: "Making duplicate recursive calls instead of returning combined state tuple, degrading time to exponential.",
+    problems: [{ id: "LC 337", name: "House Robber III", diff: "Medium" }, { id: "LC 124", name: "Binary Tree Maximum Path Sum", diff: "Hard" }, { id: "LC 968", name: "Binary Tree Cameras", diff: "Hard" }],
+    code: `function rob(root) {\n  function dfs(node) {\n    if (!node) return [0, 0];\n    const [lRob, lNot] = dfs(node.left);\n    const [rRob, rNot] = dfs(node.right);\n    const robCurr = node.val + lNot + rNot;\n    const notRobCurr = Math.max(lRob, lNot) + Math.max(rRob, rNot);\n    return [robCurr, notRobCurr];\n  }\n  const [r, nr] = dfs(root);\n  return Math.max(r, nr);\n}`
+  },
+
+  // Category 13: GREEDY
+  "greedy_activity-selection": {
+    name: "Activity Selection", category: "GREEDY", difficulty: 3,
+    summary: "Greedily picking non-overlapping intervals sorted by finish time to maximize chosen activities.",
+    clues: ["Maximum number of non-overlapping intervals", "Minimum arrows to burst balloons", "Single resource scheduling"],
+    intuition: "Sort activities by END time ascending. Pick the first activity. Then greedily pick the next activity whose start time >= previous activity's end time.",
+    complexity: "Time: O(N log N) | Space: O(1) auxiliary",
+    pitfalls: "Sorting by start time or duration instead of end time (which fails to guarantee optimality).",
+    problems: [{ id: "LC 435", name: "Non-overlapping Intervals", diff: "Medium" }, { id: "LC 452", name: "Minimum Number of Arrows to Burst Balloons", diff: "Medium" }],
+    code: `function eraseOverlapIntervals(intervals) {\n  if (!intervals.length) return 0;\n  intervals.sort((a, b) => a[1] - b[1]);\n  let count = 0, prevEnd = intervals[0][1];\n  for (let i = 1; i < intervals.length; i++) {\n    if (intervals[i][0] < prevEnd) count++;\n    else prevEnd = intervals[i][1];\n  }\n  return count;\n}`
+  },
+  "greedy_interval-scheduling": {
+    name: "Interval Scheduling", category: "GREEDY", difficulty: 3,
+    summary: "Sorting intervals by start time to merge overlaps or allocate resources.",
+    clues: ["Merge overlapping intervals", "Insert interval into non-overlapping list", "Meeting Rooms I & II"],
+    intuition: "Sort intervals by START time. Compare current interval with previous. If curr.start <= prev.end, merge by updating prev.end = max(prev.end, curr.end). Else append as new interval.",
+    complexity: "Time: O(N log N) | Space: O(N)",
+    pitfalls: "Forgetting to update prev.end with Math.max(prev.end, curr.end) when merging.",
+    problems: [{ id: "LC 56", name: "Merge Intervals", diff: "Medium" }, { id: "LC 57", name: "Insert Interval", diff: "Medium" }, { id: "LC 252", name: "Meeting Rooms", diff: "Easy" }],
+    code: `function merge(intervals) {\n  if (!intervals.length) return [];\n  intervals.sort((a, b) => a[0] - b[0]);\n  const res = [intervals[0]];\n  for (let i = 1; i < intervals.length; i++) {\n    const prev = res[res.length - 1], curr = intervals[i];\n    if (curr[0] <= prev[1]) {\n      prev[1] = Math.max(prev[1], curr[1]);\n    } else {\n      res.push(curr);\n    }\n  }\n  return res;\n}`
+  },
+  "greedy_huffman-coding": {
+    name: "Huffman Coding", category: "GREEDY", difficulty: 2,
+    summary: "Greedily building optimal prefix-free binary encoding trees using character frequency heaps.",
+    clues: ["Lossless data compression", "Optimal merge patterns", "Assign shorter binary codes to more frequent symbols"],
+    intuition: "Place all character frequencies in a Min-Heap. Repeatedly extract two lowest frequency nodes, merge into internal parent node with sum frequency, and reinsert. Continue until 1 root remains.",
+    complexity: "Time: O(N log N) | Space: O(N)",
+    pitfalls: "Generating ambiguous codes if not strictly building prefix-free leaves.",
+    problems: [{ id: "CLRS", name: "Huffman Encoding / Optimal Merge Patterns", diff: "Medium" }],
+    code: `// Huffman Coding Greedy Tree Construction\n// 1. MinHeap of [freq, node]\n// 2. While heap.size > 1: pop two min, create parent(sum), push parent\n// 3. Root is optimal prefix tree!`
+  },
+
+  // Category 14: BIT MANIPULATION
+  "bit-manipulation_basic-operations": {
+    name: "Basic Operations", category: "BIT MANIPULATION", difficulty: 3,
+    summary: "Fundamental bitwise operators (AND, OR, XOR, NOT, shifts) for constant-time masking and power-of-two checks.",
+    clues: ["Check if number is power of two", "Get, set, clear, or toggle the i-th bit", "Reverse bits of 32-bit integer"],
+    intuition: "Get bit: (n >> i) & 1. Set bit: n | (1 << i). Clear bit: n & ~(1 << i). Power of two: n > 0 && (n & (n - 1)) === 0.",
+    complexity: "Time: O(1) | Space: O(1)",
+    pitfalls: "Operator precedence: bitwise operators (&, |) have lower precedence than arithmetic and comparison (==, +). Always wrap with parentheses!",
+    problems: [{ id: "LC 231", name: "Power of Two", diff: "Easy" }, { id: "LC 190", name: "Reverse Bits", diff: "Easy" }, { id: "LC 338", name: "Counting Bits", diff: "Easy" }],
+    code: `const isPowerOfTwo = n => n > 0 && (n & (n - 1)) === 0;\nconst getBit = (n, i) => (n >> i) & 1;\nconst setBit = (n, i) => n | (1 << i);\nconst clearBit = (n, i) => n & ~(1 << i);`
+  },
+  "bit-manipulation_counting-set-bits": {
+    name: "Counting Set Bits", category: "BIT MANIPULATION", difficulty: 3,
+    summary: "Brian Kernighan's algorithm clears lowest set bit in O(1) per set bit to count 1s in binary.",
+    clues: ["Number of 1 Bits (Hamming weight)", "Hamming distance between two integers"],
+    intuition: "Expression n & (n - 1) always clears the lowest set bit of n. Repeat until n becomes 0; loop runs exactly equal to the number of 1-bits.",
+    complexity: "Time: O(Number of set bits) (<= 32 operations) | Space: O(1)",
+    pitfalls: "Using signed right shift >> instead of unsigned >>> when dealing with negative 32-bit integers in JavaScript/Java.",
+    problems: [{ id: "LC 191", name: "Number of 1 Bits", diff: "Easy" }, { id: "LC 461", name: "Hamming Distance", diff: "Easy" }],
+    code: `function hammingWeight(n) {\n  let count = 0;\n  while (n !== 0) {\n    n = n & (n - 1);\n    count++;\n  }\n  return count;\n}`
+  },
+  "bit-manipulation_xor-tricks": {
+    name: "XOR Tricks", category: "BIT MANIPULATION", difficulty: 3,
+    summary: "Leveraging self-canceling properties (x ^ x = 0, x ^ 0 = x) to isolate unpaired numbers.",
+    clues: ["Every element appears twice except for one unique element", "Missing Number in range [0...n]", "Two numbers appearing odd number of times"],
+    intuition: "XOR is commutative and associative. XORing all elements together cancels out every duplicate pair, directly revealing the single unpaired number in O(1) space.",
+    complexity: "Time: O(N) | Space: O(1)",
+    pitfalls: "Assuming XOR works for elements appearing 3 times (that requires bit counting per position).",
+    problems: [{ id: "LC 136", name: "Single Number", diff: "Easy" }, { id: "LC 268", name: "Missing Number", diff: "Easy" }, { id: "LC 260", name: "Single Number III", diff: "Medium" }],
+    code: `function singleNumber(nums) {\n  let xor = 0;\n  for (const n of nums) xor ^= n;\n  return xor;\n}`
+  },
+
+  // Category 15: ADVANCED PATTERNS
+  "advanced-patterns_two-pointers": {
+    name: "Two Pointers", category: "ADVANCED PATTERNS", difficulty: 4,
+    summary: "Extending two pointers to k-sum variations (3Sum, 4Sum) and geometric containment problems.",
+    clues: ["3Sum / 4Sum zero sum triplets", "Container With Most Water", "Trapping Rain Water with two pointers"],
+    intuition: "Sort array. Fix outer loop pointer, then use left and right inward pointers to find target sums in linear O(N). For Container With Most Water, advance pointer with smaller height.",
+    complexity: "Time: O(N²) for 3Sum, O(N) for Container | Space: O(1)",
+    pitfalls: "Forgetting to skip duplicate elements, leading to duplicate output combinations in 3Sum.",
+    problems: [{ id: "LC 15", name: "3Sum", diff: "Medium" }, { id: "LC 11", name: "Container With Most Water", diff: "Medium" }, { id: "LC 16", name: "3Sum Closest", diff: "Medium" }],
+    code: `function threeSum(nums) {\n  nums.sort((a, b) => a - b);\n  const res = [];\n  for (let i = 0; i < nums.length - 2; i++) {\n    if (i > 0 && nums[i] === nums[i - 1]) continue;\n    let l = i + 1, r = nums.length - 1;\n    while (l < r) {\n      const sum = nums[i] + nums[l] + nums[r];\n      if (sum === 0) {\n        res.push([nums[i], nums[l], nums[r]]);\n        while (l < r && nums[l] === nums[l + 1]) l++;\n        while (l < r && nums[r] === nums[r - 1]) r--;\n        l++; r--;\n      } else if (sum < 0) l++;\n      else r--;\n    }\n  }\n  return res;\n}`
+  },
+  "advanced-patterns_meet-in-the-middle": {
+    name: "Meet in the Middle", category: "ADVANCED PATTERNS", difficulty: 3,
+    summary: "Halving exponential search spaces from O(2^N) to O(2^(N/2)) and combining halves.",
+    clues: ["Subset sum where N is around 30 to 45 (2^40 is impossible, but 2^20 is only ~10^6)", "Closest Subsequence Sum"],
+    intuition: "Split array into two halves of size N/2. Generate all subset sums for both halves. Sort the second half, then binary search for target complements.",
+    complexity: "Time: O(N * 2^(N/2)) | Space: O(2^(N/2))",
+    pitfalls: "Attempting when N is large (> 46) which still exceeds memory; forgetting to sort the second half before binary search.",
+    problems: [{ id: "LC 1755", name: "Closest Subsequence Sum", diff: "Hard" }, { id: "LC 805", name: "Split Array With Same Average", diff: "Hard" }],
+    code: `// Meet in the Middle Strategy\n// 1. Split array into left (N/2) and right (N/2)\n// 2. Generate all subset sums: leftSums and rightSums\n// 3. Sort rightSums\n// 4. For each sum in leftSums, binary search in rightSums`
+  },
+  "advanced-patterns_sweep-line": {
+    name: "Sweep Line", category: "ADVANCED PATTERNS", difficulty: 2,
+    summary: "Deconstructing intervals into chronological start (+1) and end (-1) events to track continuous resource usage.",
+    clues: ["Meeting Rooms II (minimum conference rooms required)", "Maximum population year", "Skyline Problem"],
+    intuition: "Transform each interval [s, e] into event (s, +1) and (e, -1). Sort all events by timestamp. Sweep through in order, updating running count. Peak count is the answer.",
+    complexity: "Time: O(N log N) | Space: O(N)",
+    pitfalls: "Handling tie timestamps: if meeting ends at 10 and another starts at 10, end event must process before start event if room is reusable immediately.",
+    problems: [{ id: "LC 253", name: "Meeting Rooms II", diff: "Medium" }, { id: "LC 1854", name: "Maximum Population Year", diff: "Easy" }, { id: "LC 218", name: "The Skyline Problem", diff: "Hard" }],
+    code: `function minMeetingRooms(intervals) {\n  const starts = intervals.map(i => i[0]).sort((a, b) => a - b);\n  const ends = intervals.map(i => i[1]).sort((a, b) => a - b);\n  let rooms = 0, endIdx = 0;\n  for (let i = 0; i < starts.length; i++) {\n    if (starts[i] < ends[endIdx]) rooms++;\n    else endIdx++;\n  }\n  return rooms;\n}`
+  },
+  "advanced-patterns_prefix-sum": {
+    name: "Prefix Sum", category: "ADVANCED PATTERNS", difficulty: 3,
+    summary: "Multidimensional 2D prefix sums and difference arrays for submatrix queries and range updates.",
+    clues: ["2D Range Sum Query (Submatrix sum in O(1))", "Difference array for applying range additions in O(1) per update"],
+    intuition: "2D Prefix Sum: pref[r][c] = val + pref[r-1][c] + pref[r][c-1] - pref[r-1][c-1]. Query: pref[r2][c2] - pref[r1-1][c2] - pref[r2][c1-1] + pref[r1-1][c1-1].",
+    complexity: "Time: O(R * C) preprocess, O(1) per query | Space: O(R * C)",
+    pitfalls: "Forgetting to add back the double-subtracted top-left overlap; 0-indexed bounds checks.",
+    problems: [{ id: "LC 304", name: "Range Sum Query 2D - Immutable", diff: "Medium" }, { id: "LC 1074", name: "Number of Submatrices That Sum to Target", diff: "Hard" }],
+    code: `class NumMatrix {\n  constructor(matrix) {\n    const R = matrix.length, C = matrix[0].length;\n    this.dp = Array.from({ length: R + 1 }, () => new Array(C + 1).fill(0));\n    for (let r = 0; r < R; r++) {\n      for (let c = 0; c < C; c++) {\n        this.dp[r + 1][c + 1] = matrix[r][c] + this.dp[r][c + 1] + this.dp[r + 1][c] - this.dp[r][c];\n      }\n    }\n  }\n  sumRegion(r1, c1, r2, c2) {\n    return this.dp[r2 + 1][c2 + 1] - this.dp[r1][c2 + 1] - this.dp[r2 + 1][c1] + this.dp[r1][c1];\n  }\n}`
+  },
+
+  // Category 16: RANGE STRUCTURES
+  "range-structures_segment-tree": {
+    name: "Segment Tree", category: "RANGE STRUCTURES", difficulty: 3,
+    summary: "Binary tree where each node stores aggregate values for an interval [L, R], enabling O(log N) queries and updates.",
+    clues: ["Range Minimum Query (RMQ) or Range Sum with dynamic point/range updates", "Count of Smaller Numbers After Self"],
+    intuition: "Tree array of size 4N. Each parent node represents [L, R] computed from left child [L, mid] and right child [mid + 1, R]. Point updates propagate upward in O(log N).",
+    complexity: "Time: O(N) build, O(log N) query & update | Space: O(N) (4N array)",
+    pitfalls: "Allocating array of size 2N instead of 4N causing index out-of-bounds segfaults; forgetting lazy propagation on range updates.",
+    problems: [{ id: "LC 307", name: "Range Sum Query - Mutable", diff: "Medium" }, { id: "LC 315", name: "Count of Smaller Numbers After Self", diff: "Hard" }],
+    code: `class SegmentTree {\n  constructor(nums) {\n    this.n = nums.length;\n    this.tree = new Array(4 * this.n).fill(0);\n    this.build(nums, 1, 0, this.n - 1);\n  }\n  build(nums, node, l, r) {\n    if (l === r) { this.tree[node] = nums[l]; return; }\n    const mid = (l + r) >> 1;\n    this.build(nums, 2 * node, l, mid);\n    this.build(nums, 2 * node + 1, mid + 1, r);\n    this.tree[node] = this.tree[2 * node] + this.tree[2 * node + 1];\n  }\n  query(node, l, r, ql, qr) {\n    if (ql <= l && r <= qr) return this.tree[node];\n    if (r < ql || l > qr) return 0;\n    const mid = (l + r) >> 1;\n    return this.query(2 * node, l, mid, ql, qr) + this.query(2 * node + 1, mid + 1, r, ql, qr);\n  }\n}`
+  },
+  "range-structures_fenwick-tree-bit": {
+    name: "Fenwick Tree (BIT)", category: "RANGE STRUCTURES", difficulty: 3,
+    summary: "Binary Indexed Tree using lowest set bit isolation (i & -i) for compact O(log N) prefix sums and point updates.",
+    clues: ["Mutable Range Sum Query with minimal code and O(N) memory", "Inversion count in array"],
+    intuition: "Uses 1-based indexing. Each index i stores the sum of a range of length i & (-i) ending at i. To update: add i & (-i). To query prefix sum: subtract i & (-i).",
+    complexity: "Time: O(N) build, O(log N) query & update | Space: O(N) exact size N+1",
+    pitfalls: "Fenwick Trees use 1-based indexing; indexing at 0 causes an infinite loop because 0 & (-0) == 0.",
+    problems: [{ id: "LC 307", name: "Range Sum Query - Mutable", diff: "Medium" }, { id: "LC 327", name: "Count of Range Sum", diff: "Hard" }],
+    code: `class FenwickTree {\n  constructor(size) {\n    this.tree = new Array(size + 1).fill(0);\n  }\n  update(i, delta) {\n    for (; i < this.tree.length; i += i & (-i)) this.tree[i] += delta;\n  }\n  query(i) {\n    let sum = 0;\n    for (; i > 0; i -= i & (-i)) sum += this.tree[i];\n    return sum;\n  }\n  rangeQuery(l, r) { return this.query(r) - this.query(l - 1); }\n}`
+  }
+};
+
+// ==========================================================================
+// STATE & LOCAL STORAGE MANAGEMENT
+// ==========================================================================
+const STORAGE_KEY_PROGRESS = "dsa_mastery_completed_patterns";
+const STORAGE_KEY_THEME = "dsa_mastery_theme";
+
+let completedPatterns = new Set();
+try {
+  const saved = localStorage.getItem(STORAGE_KEY_PROGRESS);
+  if (saved) completedPatterns = new Set(JSON.parse(saved));
+} catch (e) {
+  console.error("Failed to load progress from localStorage", e);
+}
+
+function saveProgress() {
+  try {
+    localStorage.setItem(STORAGE_KEY_PROGRESS, JSON.stringify(Array.from(completedPatterns)));
+  } catch (e) {
+    console.error("Failed to save progress", e);
+  }
+}
+
+// All patterns list for navigation and indexing
+const ALL_PATTERNS_ORDER = [];
+
+// ==========================================================================
+// DOM ELEMENTS & INITIAL SETUP
+// ==========================================================================
+const NS = "http://www.w3.org/2000/svg";
+const mapEl = document.getElementById("map");
+const rowsEl = document.getElementById("rows");
+const svgEl = document.getElementById("links");
+const hubEl = mapEl.querySelector(".hub");
+const hubG = document.createElementNS(NS, "g");
+svgEl.appendChild(hubG);
+
+const searchInput = document.getElementById("search-input");
+const clearSearchBtn = document.getElementById("clear-search");
+const filterDiff = document.getElementById("filter-diff");
+const filterStatus = document.getElementById("filter-status");
+const filterCat = document.getElementById("filter-cat");
+const btnExpandAll = document.getElementById("btn-expand-all");
+const btnCollapseAll = document.getElementById("btn-collapse-all");
+const btnResetFilters = document.getElementById("btn-reset-filters");
+const noResultsBox = document.getElementById("no-results-box");
+const btnClearFallback = document.getElementById("btn-clear-search-fallback");
+
+const themeToggleBtn = document.getElementById("theme-toggle");
+const themeIcon = document.getElementById("theme-icon");
+const themeText = document.getElementById("theme-text");
+
+const resetModal = document.getElementById("reset-modal");
+const resetProgressBtn = document.getElementById("reset-progress-btn");
+const modalCancelBtn = document.getElementById("modal-cancel-btn");
+const modalConfirmBtn = document.getElementById("modal-confirm-btn");
+const toastNotify = document.getElementById("toast-notify");
+
+// Drawer elements
+const drawerBackdrop = document.getElementById("drawer-backdrop");
+const drawerCloseBtn = document.getElementById("drawer-close");
+const drawerCatTag = document.getElementById("drawer-cat-tag");
+const drawerDiffTag = document.getElementById("drawer-diff-tag");
+const drawerTitle = document.getElementById("drawer-title");
+const drawerSummary = document.getElementById("drawer-summary");
+const drawerClues = document.getElementById("drawer-clues");
+const drawerComplexity = document.getElementById("drawer-complexity");
+const drawerCode = document.getElementById("drawer-code");
+const copyCodeBtn = document.getElementById("copy-code-btn");
+const drawerPitfalls = document.getElementById("drawer-pitfalls");
+const drawerProblems = document.getElementById("drawer-problems");
+const drawerCompleteToggle = document.getElementById("drawer-complete-toggle");
+const drawerCheckIcon = document.getElementById("drawer-check-icon");
+const drawerToggleText = document.getElementById("drawer-toggle-text");
+const drawerPrevBtn = document.getElementById("drawer-prev");
+const drawerNextBtn = document.getElementById("drawer-next");
+
+let currentActivePatternKey = null;
+
+// Category state array
+const categoryState = []; // { cat, row, links: [], group, catName, catIndex, items: [], hubPath }
+
+// Helper for element creation
+function h(tag, cls, parent, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  if (parent) parent.appendChild(e);
+  return e;
+}
+
+// Toast notification trigger
+let toastTimer = null;
+function showToast(message) {
+  toastNotify.textContent = message;
+  toastNotify.classList.add("active");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastNotify.classList.remove("active"), 2400);
+}
+
+// Populate Category Filter dropdown
+DATA.forEach(([name], i) => {
+  const opt = document.createElement("option");
+  opt.value = i;
+  opt.textContent = `${i + 1}. ${name}`;
+  filterCat.appendChild(opt);
+});
+
+// Recursively build category pattern items list
+function buildList(items, ul, parentItem, st, ctr, catName, catColor) {
+  items.forEach(([label, diff, kids]) => {
+    const li = h("li", kids ? "grp" : "leaf", ul);
+    const item = h("div", "item" + (kids ? " parent" : ""), null);
+    li.appendChild(item);
+    item.style.setProperty("--i", ctr.n++);
+
+    const patternKey = getPatternKey(catName, label);
+
+    if (!kids) {
+      ALL_PATTERNS_ORDER.push(patternKey);
+      st.items.push({ key: patternKey, label, diff, el: item });
+
+      // Completion Checkbox button
+      const checkBtn = h("button", "check-btn", item);
+      checkBtn.type = "button";
+      checkBtn.setAttribute("aria-label", `Mark ${label} as completed`);
+      checkBtn.textContent = "✓";
+      if (completedPatterns.has(patternKey)) {
+        item.classList.add("completed");
+      }
+
+      checkBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        togglePatternCompleted(patternKey, item);
+      });
+
+      // Clickable Label for Guidance Drawer
+      const lblBtn = h("button", "lbl-btn", item);
+      lblBtn.type = "button";
+      h("span", "lbl", lblBtn, label);
+      lblBtn.addEventListener("click", () => openGuidanceDrawer(patternKey));
+
+      if (diff) {
+        const b = h("i", "badge", item, diff);
+        b.style.setProperty("--b", DIFF[diff] || catColor);
+      }
+
+      // "Guide" Pill Button
+      const guideBtn = h("button", "btn-guide-pill", item, "💡 Guide");
+      guideBtn.type = "button";
+      guideBtn.addEventListener("click", (e) => {
+        e.stopPropagation();
+        openGuidanceDrawer(patternKey);
+      });
+    } else {
+      // Parent group label (e.g. Pointer Techniques)
+      h("span", "lbl", item, label);
+    }
+
+    st.links.push({ from: parentItem, to: item });
+
+    if (kids) {
+      const sub = h("ul", "subs", li);
+      buildList(kids, sub, item, st, ctr, catName, catColor);
+    }
+  });
+}
+
+// Build 16 Category Rows
+DATA.forEach(([name, icon, color, tint, desc, why, items], i) => {
+  const row = h("div", "row", rowsEl);
+  row.style.cssText = `--c:${color};--t:${tint};--n:${i}`;
+  row.setAttribute("data-category-index", i);
+
+  const left = h("div", "left", row);
+  const cat = h("button", "cat", left);
+  cat.type = "button";
+  cat.setAttribute("aria-expanded", "false");
+
+  h("span", "ico" + (icon.length > 2 ? " sm" : ""), cat, icon);
+  h("span", "nm", cat, `${i + 1}. ${name}`);
+
+  const catProgPill = h("span", "cat-progress", cat, "0/0");
+  h("span", "chev", cat, "›");
+
+  const dw = h("div", "dwrap", left);
+  h("div", "", dw).appendChild(h("div", "desc", null, desc));
+
+  const kids = h("div", "kids", row);
+  const inner = h("div", "inner", kids);
+  kids.setAttribute("aria-hidden", "true");
+
+  const st = {
+    cat,
+    row,
+    links: [],
+    group: null,
+    catName: name,
+    catIndex: i,
+    items: [],
+    catColor: color,
+    catProgPill
+  };
+  const ctr = { n: 0 };
+
+  buildList(items, h("ul", "subs", inner), null, st, ctr, name, color);
+
+  const w = h("div", "why", inner);
+  w.style.setProperty("--i", ctr.n);
+  w.innerHTML = "<b>Why it matters:</b>";
+  w.appendChild(document.createTextNode(why));
+
+  categoryState.push(st);
+
+  // SVG link from central hub to category tile
+  const p = document.createElementNS(NS, "path");
+  p.setAttribute("class", "hubp");
+  p.setAttribute("pathLength", 1);
+  p.setAttribute("stroke", color);
+  p.style.setProperty("--n", i);
+  hubG.appendChild(p);
+  st.hubPath = p;
+
+  cat.addEventListener("click", () => {
+    st.row.classList.contains("open") ? closeRow(st) : openRow(st);
+  });
+});
+
+// ==========================================================================
+// SVG CURVES & GEOMETRY CALCULATION
+// ==========================================================================
+const mq = window.matchMedia("(max-width:768px)");
+
+function pos(el) {
+  let x = 0, y = 0, e = el;
+  while (e && e !== mapEl) {
+    x += e.offsetLeft;
+    y += e.offsetTop;
+    e = e.offsetParent;
+  }
+  return { x, y };
+}
+
+function bez(sx, sy, ex, ey) {
+  const m = (ex - sx) * 0.5;
+  return `M${sx} ${sy}C${sx + m} ${sy},${ex - m} ${ey},${ex} ${ey}`;
+}
+
+function updateSvg() {
+  if (mq.matches) return;
+  svgEl.setAttribute("width", mapEl.offsetWidth);
+  svgEl.setAttribute("height", mapEl.offsetHeight);
+
+  const hp = pos(hubEl);
+  const R = hubEl.offsetWidth / 2;
+  const cx = hp.x + R, cy = hp.y + R;
+
+  categoryState.forEach(st => {
+    // If category row is filtered out / hidden
+    if (st.row.style.display === "none") {
+      st.hubPath.style.display = "none";
+      if (st.group) st.group.style.display = "none";
+      return;
+    }
+    st.hubPath.style.display = "";
+    if (st.group) st.group.style.display = "";
+
+    const c = pos(st.cat);
+    const tx = c.x;
+    const ty = c.y + st.cat.offsetHeight / 2;
+    const th = Math.max(-1.1, Math.min(1.1, Math.atan2(ty - cy, tx - cx)));
+    st.hubPath.setAttribute("d", bez(cx + R * Math.cos(th), cy + R * Math.sin(th), tx, ty));
+
+    if (!st.group) return;
+    st.links.forEach(l => {
+      if (!l.path) return;
+      let sx, sy;
+      if (l.from) {
+        const f = pos(l.from);
+        sx = f.x + l.from.offsetWidth + 2;
+        sy = f.y + l.from.offsetHeight - 1;
+      } else {
+        sx = c.x + st.cat.offsetWidth;
+        sy = ty;
+      }
+      const t = pos(l.to);
+      l.path.setAttribute("d", bez(sx, sy, t.x - 2, t.y + l.to.offsetHeight - 1));
+    });
+  });
+}
+
+let until = 0, running = false;
+function kick() {
+  until = performance.now() + 1400;
+  if (running) return;
+  running = true;
+  (function loop() {
+    updateSvg();
+    if (performance.now() < until) requestAnimationFrame(loop);
+    else running = false;
+  })();
+}
+
+function openRow(st) {
+  st.row.classList.add("open");
+  st.cat.setAttribute("aria-expanded", "true");
+  st.row.querySelector(".kids").removeAttribute("aria-hidden");
+  if (st.group) st.group.remove();
+
+  const g = document.createElementNS(NS, "g");
+  g.setAttribute("class", "subg");
+  svgEl.appendChild(g);
+  st.group = g;
+
+  const color = st.catColor;
+  st.links.forEach((l, k) => {
+    const p = document.createElementNS(NS, "path");
+    p.setAttribute("class", "subp");
+    p.setAttribute("pathLength", 1);
+    p.setAttribute("stroke", color);
+    p.style.setProperty("--dl", (k * 0.075 + 0.1) + "s");
+    g.appendChild(p);
+    l.path = p;
+  });
+  kick();
+}
+
+function closeRow(st) {
+  st.row.classList.remove("open");
+  st.cat.setAttribute("aria-expanded", "false");
+  st.row.querySelector(".kids").setAttribute("aria-hidden", "true");
+  const g = st.group;
+  if (g) {
+    g.classList.add("out");
+    setTimeout(() => {
+      if (st.group === g) st.group = null;
+      g.remove();
+    }, 260);
+  }
+  kick();
+}
+
+// ==========================================================================
+// PROGRESS & DASHBOARD UPDATES
+// ==========================================================================
+const statTotalEl = document.getElementById("stat-total");
+const statCompletedEl = document.getElementById("stat-completed");
+const statRemainingEl = document.getElementById("stat-remaining");
+const statPctEl = document.getElementById("stat-pct");
+const progressFillBar = document.getElementById("progress-fill-bar");
+const progressTextDetail = document.getElementById("progress-text-detail");
+const progressStatusPill = document.getElementById("progress-status-pill");
+
+function updateProgressDashboard() {
+  const total = ALL_PATTERNS_ORDER.length;
+  const completed = completedPatterns.size;
+  const remaining = Math.max(0, total - completed);
+  const pct = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+  statTotalEl.textContent = total;
+  statCompletedEl.textContent = completed;
+  statRemainingEl.textContent = remaining;
+  statPctEl.textContent = `${pct}%`;
+
+  progressFillBar.style.width = `${pct}%`;
+  progressFillBar.parentElement.setAttribute("aria-valuenow", pct);
+  progressTextDetail.textContent = `Preparation Progress: ${completed} of ${total} patterns mastered`;
+
+  // Status badge message
+  if (pct === 0) {
+    progressStatusPill.textContent = "Getting Started";
+    progressStatusPill.className = "progress-status-badge";
+  } else if (pct < 30) {
+    progressStatusPill.textContent = "Building Foundations";
+    progressStatusPill.className = "progress-status-badge";
+  } else if (pct < 70) {
+    progressStatusPill.textContent = "Solid Momentum";
+    progressStatusPill.className = "progress-status-badge";
+  } else if (pct < 100) {
+    progressStatusPill.textContent = "Interview Ready";
+    progressStatusPill.className = "progress-status-badge";
+  } else {
+    progressStatusPill.textContent = "Mastery Achieved! 🎉";
+    progressStatusPill.className = "progress-status-badge complete";
+  }
+
+  // Update category-level progress badges
+  categoryState.forEach(st => {
+    const catTotal = st.items.length;
+    let catDone = 0;
+    st.items.forEach(it => {
+      if (completedPatterns.has(it.key)) catDone++;
+    });
+
+    if (catDone === catTotal && catTotal > 0) {
+      st.catProgPill.textContent = "✓ Mastered";
+      st.catProgPill.className = "cat-progress complete";
+    } else if (catDone > 0) {
+      st.catProgPill.textContent = `${catDone}/${catTotal}`;
+      st.catProgPill.className = "cat-progress in-progress";
+    } else {
+      st.catProgPill.textContent = `${catDone}/${catTotal}`;
+      st.catProgPill.className = "cat-progress";
+    }
+  });
+}
+
+function togglePatternCompleted(patternKey, itemEl) {
+  if (completedPatterns.has(patternKey)) {
+    completedPatterns.delete(patternKey);
+    itemEl && itemEl.classList.remove("completed");
+    showToast("Pattern marked as to-do.");
+  } else {
+    completedPatterns.add(patternKey);
+    itemEl && itemEl.classList.add("completed");
+    showToast("Pattern marked as mastered! ✓");
+  }
+  saveProgress();
+  updateProgressDashboard();
+  if (currentActivePatternKey === patternKey) {
+    syncDrawerCompleteButton(patternKey);
+  }
+}
+
+// ==========================================================================
+// SEARCH & MULTI-FILTER ENGINE
+// ==========================================================================
+function filterMindmap() {
+  const query = searchInput.value.trim().toLowerCase();
+  const diffVal = filterDiff.value;
+  const statusVal = filterStatus.value;
+  const catVal = filterCat.value;
+
+  const isFiltered = query.length > 0 || diffVal !== "all" || statusVal !== "all" || catVal !== "all";
+  btnResetFilters.style.display = isFiltered ? "inline-block" : "none";
+  clearSearchBtn.style.display = query.length > 0 ? "block" : "none";
+
+  let totalVisiblePatterns = 0;
+
+  categoryState.forEach(st => {
+    // If category filter is specific and doesn't match
+    if (catVal !== "all" && String(st.catIndex) !== catVal) {
+      st.row.style.display = "none";
+      return;
+    }
+
+    let catHasVisiblePattern = false;
+
+    st.items.forEach(it => {
+      const guide = GUIDANCE[it.key] || {};
+      const matchesQuery = query === "" ||
+        it.label.toLowerCase().includes(query) ||
+        st.catName.toLowerCase().includes(query) ||
+        (guide.summary && guide.summary.toLowerCase().includes(query)) ||
+        (guide.clues && guide.clues.some(c => c.toLowerCase().includes(query))) ||
+        (guide.complexity && guide.complexity.toLowerCase().includes(query));
+
+      const matchesDiff = diffVal === "all" || String(it.diff) === diffVal;
+      const isCompleted = completedPatterns.has(it.key);
+      const matchesStatus = statusVal === "all" ||
+        (statusVal === "completed" && isCompleted) ||
+        (statusVal === "todo" && !isCompleted);
+
+      if (matchesQuery && matchesDiff && matchesStatus) {
+        it.el.style.display = "";
+        catHasVisiblePattern = true;
+        totalVisiblePatterns++;
+      } else {
+        it.el.style.display = "none";
+      }
+    });
+
+    if (catHasVisiblePattern) {
+      st.row.style.display = "";
+      // If user typed a search query, auto-expand matching categories for visibility
+      if (query.length > 0 && !st.row.classList.contains("open")) {
+        openRow(st);
+      }
+    } else {
+      st.row.style.display = "none";
+      if (st.row.classList.contains("open")) {
+        closeRow(st);
+      }
+    }
+  });
+
+  // Empty state fallback
+  if (totalVisiblePatterns === 0) {
+    noResultsBox.style.display = "block";
+  } else {
+    noResultsBox.style.display = "none";
+  }
+
+  kick();
+}
+
+function resetAllFilters() {
+  searchInput.value = "";
+  filterDiff.value = "all";
+  filterStatus.value = "all";
+  filterCat.value = "all";
+  filterMindmap();
+}
+
+searchInput.addEventListener("input", filterMindmap);
+clearSearchBtn.addEventListener("click", () => {
+  searchInput.value = "";
+  searchInput.focus();
+  filterMindmap();
+});
+filterDiff.addEventListener("change", filterMindmap);
+filterStatus.addEventListener("change", filterMindmap);
+filterCat.addEventListener("change", filterMindmap);
+btnResetFilters.addEventListener("click", resetAllFilters);
+btnClearFallback.addEventListener("click", resetAllFilters);
+
+btnExpandAll.addEventListener("click", () => {
+  categoryState.forEach(st => {
+    if (st.row.style.display !== "none" && !st.row.classList.contains("open")) {
+      openRow(st);
+    }
+  });
+});
+
+btnCollapseAll.addEventListener("click", () => {
+  categoryState.forEach(st => {
+    if (st.row.classList.contains("open")) {
+      closeRow(st);
+    }
+  });
+});
+
+// ==========================================================================
+// LEARNING GUIDANCE DRAWER LOGIC
+// ==========================================================================
+function openGuidanceDrawer(patternKey) {
+  const guide = GUIDANCE[patternKey];
+  if (!guide) return;
+
+  currentActivePatternKey = patternKey;
+
+  drawerCatTag.textContent = guide.category;
+  drawerCatTag.style.background = DIFF[guide.difficulty] ? `${DIFF[guide.difficulty]}22` : "var(--navy-glow)";
+  drawerCatTag.style.color = DIFF[guide.difficulty] || "var(--navy)";
+
+  drawerDiffTag.textContent = `Level ${guide.difficulty} • ${DIFF_NAMES[guide.difficulty] || "Standard"}`;
+  drawerDiffTag.style.background = DIFF[guide.difficulty] || "var(--navy)";
+
+  drawerTitle.textContent = guide.name;
+  drawerSummary.textContent = guide.summary;
+
+  // Clues
+  drawerClues.innerHTML = "";
+  if (guide.clues && guide.clues.length) {
+    guide.clues.forEach(c => {
+      const li = document.createElement("li");
+      li.textContent = c;
+      drawerClues.appendChild(li);
+    });
+  }
+
+  drawerComplexity.textContent = guide.complexity;
+  drawerCode.textContent = guide.code || "// Implementation recipe coming soon";
+  copyCodeBtn.textContent = "Copy Recipe";
+
+  drawerPitfalls.textContent = guide.pitfalls || "Take care of index boundaries and state preservation.";
+
+  // Problem badges
+  drawerProblems.innerHTML = "";
+  if (guide.problems && guide.problems.length) {
+    guide.problems.forEach(p => {
+      const pill = document.createElement("div");
+      pill.className = "problem-pill";
+      pill.innerHTML = `<span>${p.name} (${p.id})</span><span class="diff-indicator ${p.diff}">${p.diff}</span>`;
+      drawerProblems.appendChild(pill);
+    });
+  }
+
+  syncDrawerCompleteButton(patternKey);
+
+  drawerBackdrop.classList.add("active");
+  drawerBackdrop.setAttribute("aria-hidden", "false");
+  document.body.style.overflow = "hidden";
+}
+
+function closeGuidanceDrawer() {
+  drawerBackdrop.classList.remove("active");
+  drawerBackdrop.setAttribute("aria-hidden", "true");
+  document.body.style.overflow = "";
+}
+
+function syncDrawerCompleteButton(patternKey) {
+  const isDone = completedPatterns.has(patternKey);
+  if (isDone) {
+    drawerCompleteToggle.classList.add("done");
+    drawerCheckIcon.textContent = "✓";
+    drawerToggleText.textContent = "Mastered!";
+  } else {
+    drawerCompleteToggle.classList.remove("done");
+    drawerCheckIcon.textContent = "○";
+    drawerToggleText.textContent = "Mark as Completed";
+  }
+}
+
+drawerCompleteToggle.addEventListener("click", () => {
+  if (!currentActivePatternKey) return;
+  // Locate itemEl in DOM to sync checkbox
+  let itemEl = null;
+  categoryState.forEach(st => {
+    const found = st.items.find(it => it.key === currentActivePatternKey);
+    if (found) itemEl = found.el;
+  });
+  togglePatternCompleted(currentActivePatternKey, itemEl);
+});
+
+copyCodeBtn.addEventListener("click", () => {
+  const code = drawerCode.textContent;
+  navigator.clipboard.writeText(code).then(() => {
+    copyCodeBtn.textContent = "Copied! ✓";
+    showToast("Algorithmic recipe copied to clipboard!");
+    setTimeout(() => { copyCodeBtn.textContent = "Copy Recipe"; }, 2000);
+  }).catch(() => {
+    showToast("Copied to clipboard!");
+  });
+});
+
+drawerCloseBtn.addEventListener("click", closeGuidanceDrawer);
+drawerBackdrop.addEventListener("click", (e) => {
+  if (e.target === drawerBackdrop) closeGuidanceDrawer();
+});
+
+// Drawer Prev / Next buttons
+drawerPrevBtn.addEventListener("click", () => {
+  if (!currentActivePatternKey) return;
+  const idx = ALL_PATTERNS_ORDER.indexOf(currentActivePatternKey);
+  const prevIdx = (idx - 1 + ALL_PATTERNS_ORDER.length) % ALL_PATTERNS_ORDER.length;
+  openGuidanceDrawer(ALL_PATTERNS_ORDER[prevIdx]);
+});
+drawerNextBtn.addEventListener("click", () => {
+  if (!currentActivePatternKey) return;
+  const idx = ALL_PATTERNS_ORDER.indexOf(currentActivePatternKey);
+  const nextIdx = (idx + 1) % ALL_PATTERNS_ORDER.length;
+  openGuidanceDrawer(ALL_PATTERNS_ORDER[nextIdx]);
+});
+
+// ==========================================================================
+// RESET PROGRESS CONFIRMATION MODAL
+// ==========================================================================
+resetProgressBtn.addEventListener("click", () => {
+  resetModal.classList.add("active");
+  resetModal.setAttribute("aria-hidden", "false");
+});
+
+modalCancelBtn.addEventListener("click", () => {
+  resetModal.classList.remove("active");
+  resetModal.setAttribute("aria-hidden", "true");
+});
+
+modalConfirmBtn.addEventListener("click", () => {
+  completedPatterns.clear();
+  saveProgress();
+  // Uncheck all item elements in DOM
+  document.querySelectorAll(".item.completed").forEach(el => el.classList.remove("completed"));
+  updateProgressDashboard();
+  if (currentActivePatternKey) syncDrawerCompleteButton(currentActivePatternKey);
+  resetModal.classList.remove("active");
+  resetModal.setAttribute("aria-hidden", "true");
+  showToast("All progress has been reset.");
+});
+
+// ==========================================================================
+// LIGHT / DARK THEME TOGGLE
+// ==========================================================================
+function applyTheme(theme) {
+  if (theme === "dark") {
+    document.documentElement.setAttribute("data-theme", "dark");
+    themeIcon.textContent = "☀️";
+    themeText.textContent = "Light";
+  } else {
+    document.documentElement.removeAttribute("data-theme");
+    themeIcon.textContent = "🌙";
+    themeText.textContent = "Dark";
+  }
+  try {
+    localStorage.setItem(STORAGE_KEY_THEME, theme);
+  } catch (e) {}
+  kick();
+}
+
+// Initial theme detection
+const savedTheme = localStorage.getItem(STORAGE_KEY_THEME);
+if (savedTheme) {
+  applyTheme(savedTheme);
+} else if (window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) {
+  applyTheme("dark");
+}
+
+themeToggleBtn.addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme") === "dark" ? "dark" : "light";
+  applyTheme(current === "dark" ? "light" : "dark");
+});
+
+// ==========================================================================
+// KEYBOARD SHORTCUTS
+// ==========================================================================
+window.addEventListener("keydown", (e) => {
+  if (e.key === "Escape") {
+    if (drawerBackdrop.classList.contains("active")) {
+      closeGuidanceDrawer();
+    } else if (resetModal.classList.contains("active")) {
+      resetModal.classList.remove("active");
+    } else if (searchInput.value.length > 0) {
+      searchInput.value = "";
+      filterMindmap();
+    }
+  } else if (e.key === "/" && document.activeElement !== searchInput) {
+    e.preventDefault();
+    searchInput.focus();
+    searchInput.select();
+  }
+});
+
+// ==========================================================================
+// INITIAL RESIZE & LAUNCH
+// ==========================================================================
+new ResizeObserver(updateSvg).observe(mapEl);
+window.addEventListener("resize", updateSvg);
+mq.addEventListener("change", updateSvg);
+
+updateProgressDashboard();
+kick();
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(kick);
+}
+</script>
+
+</body>
+</html>
+
